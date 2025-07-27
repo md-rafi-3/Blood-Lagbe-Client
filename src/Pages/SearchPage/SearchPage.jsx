@@ -2,40 +2,13 @@ import React, { useEffect, useState } from "react";
 import divisions from "../../assets/Data/divisions.json";
 import districts from "../../assets/Data/districts.json";
 import upazilas from "../../assets/Data/upazilas.json";
-
-const demoDonors = [
-  {
-    id: 1,
-    name: "Rafi Ahmed",
-    bloodGroup: "A+",
-    division: "Dhaka",
-    district: "Dhaka",
-    upazila: "Mirpur",
-    contact: "01700000001",
-  },
-  {
-    id: 2,
-    name: "Fatema Jahan",
-    bloodGroup: "O-",
-    division: "Dhaka",
-    district: "Dhaka",
-    upazila: "Gulshan",
-    contact: "01700000002",
-  },
-  {
-    id: 3,
-    name: "Sakib Hossain",
-    bloodGroup: "A+",
-    division: "Rajshahi",
-    district: "Pabna",
-    upazila: "Ishwardi",
-    contact: "01700000003",
-  },
-];
-
-const bloodGroups = ["A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-"];
+import useAxiosPublic from "../../Hooks/axiosPublic";
+import { useQuery } from "@tanstack/react-query";
+import DonorCard from "./DonorCard";
 
 export default function SearchPage() {
+  const axiosPublic = useAxiosPublic();
+  const bloodGroups = ["A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-"];
   const [formData, setFormData] = useState({
     bloodGroup: "",
     division: "",
@@ -45,50 +18,45 @@ export default function SearchPage() {
 
   const [filteredDistricts, setFilteredDistricts] = useState([]);
   const [filteredUpazilas, setFilteredUpazilas] = useState([]);
-  const [results, setResults] = useState([]);
 
   useEffect(() => {
-    const newDistricts = districts.filter(
-      (d) => d.division_id === formData.division
-    );
+    const newDistricts = districts.filter((d) => d.division_id === formData.division);
     setFilteredDistricts(newDistricts);
     setFormData((prev) => ({ ...prev, district: "", upazila: "" }));
     setFilteredUpazilas([]);
   }, [formData.division]);
 
   useEffect(() => {
-    const newUpazilas = upazilas.filter(
-      (u) => u.district_id === formData.district
-    );
+    const newUpazilas = upazilas.filter((u) => u.district_id === formData.district);
     setFilteredUpazilas(newUpazilas);
     setFormData((prev) => ({ ...prev, upazila: "" }));
   }, [formData.district]);
 
-  useEffect(() => {
-    const divisionName =
-      divisions.find((d) => d.id === formData.division)?.name || "";
-    const districtName =
-      districts.find((d) => d.id === formData.district)?.name || "";
-    const upazilaName = formData.upazila;
+  const divisionName = divisions.find((d) => d.id === formData.division)?.name || "";
+  const districtName = districts.find((d) => d.id === formData.district)?.name || "";
+  const upazilaName = formData.upazila;
 
-    if (
-      formData.bloodGroup &&
-      formData.division &&
-      formData.district &&
-      formData.upazila
-    ) {
-      const filtered = demoDonors.filter(
-        (d) =>
-          d.bloodGroup === formData.bloodGroup &&
-          d.division === divisionName &&
-          d.district === districtName &&
-          d.upazila === upazilaName
-      );
-      setResults(filtered);
-    } else {
-      setResults([]);
-    }
-  }, [formData]);
+  const searchValues = {
+    divisionName,
+    districtName,
+    upazilaName,
+    bloodGroup: formData.bloodGroup,
+  };
+
+  const isFilterApplied =
+    formData.bloodGroup &&
+    divisionName &&
+    districtName &&
+    upazilaName;
+
+  const { data: donors = [], isLoading, error } = useQuery({
+    queryKey: ["donors", searchValues],
+    queryFn: async () => {
+      const { data } = await axiosPublic.get("/all-users", { params: searchValues });
+      return data;
+    },
+    enabled: !!isFilterApplied,
+  });
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -104,7 +72,6 @@ export default function SearchPage() {
     });
     setFilteredDistricts([]);
     setFilteredUpazilas([]);
-    setResults([]);
   };
 
   return (
@@ -118,13 +85,8 @@ export default function SearchPage() {
         }}
       >
         <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
-          <h2 className="text-2xl font-bold text-[#d53131]">
-            Search for Blood Donor
-          </h2>
-          <button
-            onClick={resetFilters}
-            className="btn bg-gray-200 hover:bg-gray-300 text-sm"
-          >
+          <h2 className="text-2xl font-bold text-[#d53131]">Search for Blood Donor</h2>
+          <button onClick={resetFilters} className="btn bg-gray-200 hover:bg-gray-300 text-sm">
             Reset Filters
           </button>
         </div>
@@ -191,43 +153,33 @@ export default function SearchPage() {
       </div>
 
       {/* Result Section */}
-      {results.length > 0 && (
+      {isLoading && <p>Loading donors...</p>}
+
+      {!isLoading && donors.length > 0 && (
         <div className="bg-white p-6 rounded-2xl shadow-md">
           <h2 className="text-xl font-semibold mb-4">
-            Found {results.length} Donor{results.length > 1 && "s"}
+            Found {donors.length} Donor{donors.length > 1 ? "s" : ""}
           </h2>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
-            {results.map((donor) => (
-              <div
-                key={donor.id}
-                className="card border p-4 rounded-xl shadow-sm"
-              >
-                <h3 className="text-lg font-bold">{donor.name}</h3>
-                <p>
-                  Blood Group:{" "}
-                  <span className="font-semibold">{donor.bloodGroup}</span>
-                </p>
-                <p>
-                  Location: {donor.upazila}, {donor.district}
-                </p>
-                <p>Division: {donor.division}</p>
-                <p>Contact: {donor.contact}</p>
-              </div>
+            {donors.map((donor) => (
+              <DonorCard key={donor._id} donor={donor} />
             ))}
           </div>
         </div>
       )}
 
-      {results.length === 0 &&
-        formData.bloodGroup &&
-        formData.division &&
-        formData.district &&
-        formData.upazila && (
-          <div className="text-center mt-6 text-gray-500">
-            ❌ No donor found for the selected criteria.
-          </div>
-        )}
+      {!isLoading && donors.length === 0 && isFilterApplied && (
+        <div className="text-center mt-6 text-gray-500">
+          ❌ No donor found for the selected criteria.
+        </div>
+      )}
+
+      {error && (
+        <div className="text-center mt-6 text-red-500">
+          ❌ Error fetching donors. Please try again later.
+        </div>
+      )}
     </div>
   );
 }
