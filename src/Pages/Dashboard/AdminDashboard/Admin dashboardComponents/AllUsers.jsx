@@ -112,7 +112,9 @@ const AllUsers = () => {
         </div>
 
         <div className="flex justify-between items-center mt-4 text-sm text-gray-600">
-          <span>Showing 1 to 4 of 4 users</span>
+        <span>
+  Showing {(page - 1) * 5 + 1} to {Math.min(page * 5, users.length + (page - 1) * 5)} of {totalPages * 5} users
+</span>
           <div className="join mt-4">
       {/* Previous Button */}
       <button
