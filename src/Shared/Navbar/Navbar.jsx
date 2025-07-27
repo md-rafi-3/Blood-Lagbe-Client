@@ -57,7 +57,7 @@ const Navbar = () => {
     </NavLink>
   </li>
      <li>
-    <NavLink to="/" end className={({ isActive }) => isActive ? "text-red-500 font-bold" : ""}>
+    <NavLink to="/all-donation-requests" end className={({ isActive }) => isActive ? "text-red-500 font-bold" : ""}>
      Donation Requests
     </NavLink>
   </li>

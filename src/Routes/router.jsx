@@ -14,6 +14,7 @@ import Addblog from "../Pages/Dashboard/AdminDashboard/Admin dashboardComponents
 import CreateDonationRequest from "../Pages/Dashboard/DonerDashboard/CreateDonationRequest";
 import MyDonationRequest from "../Pages/Dashboard/DonerDashboard/DonorDashboardComponents/MyDonationRequest";
 import SearchPage from "../Pages/SearchPage/SearchPage";
+import DonationRequests from "../Pages/DonationRequests/DonationRequests";
 
 
 
@@ -37,6 +38,10 @@ export const router = createBrowserRouter([
         {
             path:"searchDonors",
             element:<SearchPage></SearchPage>
+        },
+        {
+            path:"all-donation-requests",
+            element:<DonationRequests></DonationRequests>
         }
         
         

@@ -1,20 +1,26 @@
 import { FaUsers, FaDollarSign, FaTint } from "react-icons/fa";
 import useAxiosSecure from "../../../../Hooks/useAxiosSecure";
 import { useQuery } from "@tanstack/react-query";
+import { useState } from "react";
 
 const AllUsers = () => {
   const axios=useAxiosSecure()
+  const [page, setPage] = useState(1)
+  const [totalPages, setTotalPages] = useState(1);
   
 
-  const fetchUsers=async()=>{
-   const res=await axios.get("/users");
-   return res.data;
+  const fetchUsers=async(page)=>{
+   const res=await axios.get(`/users?page=${page}`);
+   setTotalPages(Math.ceil(res.data.totalCount/5))
+   return res.data.result;
   }
 
   const { data:users=[], isLoading, error } = useQuery({
-    queryKey: ['users'],
-    queryFn: fetchUsers,
+    queryKey: ['users',page],
+    queryFn: ()=>fetchUsers(page),
+    keepPreviousData: true,
   })
+ 
 
   // useEffect(()=>{
   //   axios.get("/users").then(res=>{
@@ -23,7 +29,7 @@ const AllUsers = () => {
   //   })
   // },[])
 
-  console.log("user data",users)
+  console.log("user data",users,totalPages)
   
 
   
@@ -61,6 +67,7 @@ const AllUsers = () => {
           <table className="table w-full">
             <thead>
               <tr className="bg-gray-100">
+                <th>No.</th>
                 <th>User</th>
                 <th>Email</th>
                 <th>Role</th>
@@ -73,6 +80,7 @@ const AllUsers = () => {
             <tbody>
               {users.map((user, index) => (
                 <tr key={index} className="hover">
+                  <td>{(index+1)+((page-1)*5)}</td>
                   <td>
                     <div className="flex items-center gap-3">
                       <div className="avatar placeholder">
@@ -105,11 +113,30 @@ const AllUsers = () => {
 
         <div className="flex justify-between items-center mt-4 text-sm text-gray-600">
           <span>Showing 1 to 4 of 4 users</span>
-          <div className="join">
-            <button className="join-item btn btn-sm">Previous</button>
-            <button className="join-item btn btn-sm btn-disabled">1 of 1</button>
-            <button className="join-item btn btn-sm">Next</button>
-          </div>
+          <div className="join mt-4">
+      {/* Previous Button */}
+      <button
+        className="join-item btn btn-sm"
+        onClick={() => setPage(page - 1)}
+        disabled={page === 1}
+      >
+        Previous
+      </button>
+
+      {/* Page Number Info */}
+      <button className="join-item btn btn-sm btn-disabled">
+        {page} of {totalPages}
+      </button>
+
+      {/* Next Button */}
+      <button
+        className="join-item btn btn-sm"
+        onClick={() => setPage(page + 1)}
+        disabled={page === totalPages}
+      >
+        Next
+      </button>
+    </div>
         </div>
       </div>
     </div>
