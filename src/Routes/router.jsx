@@ -17,6 +17,7 @@ import SearchPage from "../Pages/SearchPage/SearchPage";
 import DonationRequests from "../Pages/DonationRequests/DonationRequests";
 import Blog from "../Pages/Blog/Blog";
 import Funding from "../Pages/Funding/Funding";
+import DonationRequestsDetails from "../Pages/DonationRequests/DonationRequestsDetails";
 
 
 
@@ -52,6 +53,10 @@ export const router = createBrowserRouter([
         {
             path:"all-donation-requests",
             element:<DonationRequests></DonationRequests>
+        },
+        {
+            path:"donation-requests-details/:id",
+            element:<PriveteRoute><DonationRequestsDetails></DonationRequestsDetails></PriveteRoute>
         }
         
         

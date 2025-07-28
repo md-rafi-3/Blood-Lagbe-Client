@@ -44,7 +44,10 @@ const ContactUs = () => {
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
         
-          <div className="card bg-white shadow-xl p-6 rounded-xl">
+          <div className="card bg-white shadow-xl p-6 rounded-xl" style={{
+          background:
+            "linear-gradient(90deg, rgba(255,228,228,1) 0%, rgba(255,252,252,1) 50%, rgba(247,226,226,1) 100%)",
+        }}>
             <h3 className="text-xl font-semibold text-[#d53131] mb-4">Send us a Message</h3>
             <form ref={form} onSubmit={sendEmail} className="space-y-4">
               <input
@@ -79,7 +82,10 @@ const ContactUs = () => {
           </div>
 
          
-          <div className="card bg-white shadow-xl p-6 rounded-xl flex flex-col justify-center">
+          <div className="card bg-white shadow-xl p-6 rounded-xl flex flex-col justify-center" style={{
+          background:
+            "linear-gradient(90deg, rgba(255,228,228,1) 0%, rgba(255,252,252,1) 50%, rgba(247,226,226,1) 100%)",
+        }}>
             <h3 className="text-xl font-semibold text-[#d53131] mb-4">Get in Touch</h3>
             <p className="flex items-center gap-3 mb-3 text-gray-700">
               <FaPhoneAlt className="text-[#d53131]" /> +880 1234-567890

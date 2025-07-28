@@ -85,7 +85,7 @@ const AllUsers = () => {
                     <div className="flex items-center gap-3">
                       <div className="avatar placeholder">
                         <div className="bg-neutral text-white rounded-full w-10">
-                          <span>{user?.name}</span>
+                         <img src={user.avatar} alt="" />
                         </div>
                       </div>
                       <div>{user?.name}</div>

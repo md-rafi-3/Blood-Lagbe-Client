@@ -1,14 +1,15 @@
 import React from 'react';
 import { FaMapMarkerAlt, FaCalendarAlt, FaHospitalUser, FaEye, FaHeart } from 'react-icons/fa';
+import { Link } from 'react-router';
 
 const DonationRequestCard = ({request}) => {
   
 
   return (
-    <div className="max-w-sm bg-white border border-gray-200 rounded-2xl p-4 shadow-md">
+    <div className=" bg-white border border-gray-200 rounded-2xl p-4 shadow-md">
       <div className="flex justify-between mb-3">
         <span className="bg-red-600 text-white px-3 py-1 rounded-full text-xs font-semibold">High Priority</span>
-        <span className="bg-yellow-400 text-white px-3 py-1 rounded-full text-xs font-semibold">{request.status}</span>
+        <span className="bg-yellow-400 text-white px-3 py-1 rounded-full text-xs font-semibold">{request.status==="pending"?"Pending":"inprogress"}</span>
       </div>
       <h2 className="text-xl font-bold text-gray-800 mb-1">{request.recipientName}</h2>
       <p className="text-gray-600 mb-3">Needs <span className="text-red-600 font-semibold">{request.bloodGroup}</span> blood</p>
@@ -26,12 +27,8 @@ const DonationRequestCard = ({request}) => {
       </div>
       <p className="text-gray-500 mb-4 text-sm">{request.address} - {request.message}</p>
       <div className="flex flex-col gap-2">
-        <button className="flex items-center justify-center gap-2 border border-gray-300 py-2 rounded-lg font-semibold text-gray-700 hover:bg-gray-100">
-          <FaEye /> View Details
-        </button>
-        <button className="flex items-center justify-center gap-2 bg-gradient-to-r from-red-500 to-red-700 text-white py-2 rounded-lg font-semibold shadow hover:from-red-600 hover:to-red-800">
-          <FaHeart /> Donate Now
-        </button>
+        <Link to={`/donation-requests-details/${request._id}`} className='btn brn-outline'> <FaEye /> View Details</Link>
+        
       </div>
     </div>
   );

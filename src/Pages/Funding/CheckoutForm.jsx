@@ -53,7 +53,7 @@ export default function CheckoutForm() {
         
 
          await axiosSecure.post("/add-funding", {
-    amount,
+    amount:parseInt(amount),
     name: user.displayName,
     email: user.email,
     date: new Date(),
