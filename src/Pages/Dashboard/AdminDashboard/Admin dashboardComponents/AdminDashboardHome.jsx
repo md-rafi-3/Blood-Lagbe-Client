@@ -2,20 +2,28 @@ import React, { useEffect } from "react";
 import { FaUsers, FaDollarSign, FaTint } from "react-icons/fa";
 import { format } from 'date-fns';
 import useAxiosSecure from "../../../../Hooks/useAxiosSecure";
+import { useQuery } from "@tanstack/react-query";
 
 const AdminDashboardHome = () => {
+  
   const axios=useAxiosSecure()
   const primaryColor = "#d53131";
 
   const formattedTime = format(new Date(), "EEEE, MMMM d, yyyy • hh:mm a");
 
-   useEffect(()=>{
-      axios.get("/total").then(res=>{
-        console.log(res.data)
-      }).catch((error) => {
-        console.log(error)
-      })
-   },[])
+      const fetchTotal=async()=>{
+        const res=await axios.get("/total");
+        return res.data
+      }
+
+      const { data:total=[], isLoading, error } = useQuery({
+    queryKey: ['total'],
+    queryFn: fetchTotal,
+  })
+
+  console.log(total)
+
+  
 
   return (
     <div className="md:px-4 px-3 space-y-6">
@@ -37,7 +45,7 @@ const AdminDashboardHome = () => {
         <div  className="flex items-center shadow-md px-3 py-6 rounded-2xl gap-3 justify-center hover:shadow-lg transition-all  border border-gray-200 ">
           <div className="space-y-1">
             <p className="text-gray-500">Total Users (Donors)</p>
-            <h3 className="text-3xl font-bold">1,247</h3>
+            <h3 className="text-3xl font-bold">{total.totalUsers}</h3>
             <p className="text-green-600 text-sm">+12% from last month</p>
           </div>
           <div className="bg-[#f8d3d3] p-3 rounded-full">
@@ -48,7 +56,7 @@ const AdminDashboardHome = () => {
         <div  className="flex items-center shadow-md px-3 py-6 rounded-2xl gap-3 justify-center hover:shadow-lg transition-all  border border-gray-200 ">
           <div className="space-y-1">
             <p className="text-gray-500">Total Funding Amount</p>
-            <h3 className="text-3xl font-bold">$24,580</h3>
+            <h3 className="text-3xl font-bold">${total.totalFunding}</h3>
             <p className="text-green-600 text-sm">+8% from last month</p>
           </div>
           <div className="bg-[#f8d3d3] p-3 rounded-full">
@@ -59,7 +67,7 @@ const AdminDashboardHome = () => {
         <div className="flex items-center shadow-md px-3 py-6 rounded-2xl gap-3 justify-center hover:shadow-lg transition-all  border border-gray-200 ">
           <div className="space-y-1">
             <p className="text-gray-500">Blood Donation Requests</p>
-            <h3 className="text-3xl font-bold">89</h3>
+            <h3 className="text-3xl font-bold">{total.totalRequests}</h3>
             <p className="text-red-600 text-sm">5 pending approval</p>
           </div>
           <div className="bg-[#f8d3d3] p-3 rounded-full w-fit h-fit ">

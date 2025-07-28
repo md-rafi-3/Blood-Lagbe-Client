@@ -4,6 +4,7 @@ import { useQuery } from '@tanstack/react-query';
 import DonationRequestCard from '../../Components/DonationRequestCard';
 import { FaThLarge } from 'react-icons/fa';
 import { FaListUl } from 'react-icons/fa6';
+import DonationRequestsTable from './DonationRequestsTable';
 
 const DonationRequests = () => {
      const [view, setView] = useState('grid');
@@ -44,9 +45,40 @@ const DonationRequests = () => {
 
              </div>
 
-            <div className='grid grid-cols-1 md:grid-cols-3 gap-5'>
+            <div className={`grid grid-cols-1 md:grid-cols-3 gap-5 ${view==="list" ?"hidden":"block"}`}>
                 {requestes.map(request=><DonationRequestCard request={request}></DonationRequestCard>)}
             </div>
+
+
+            <div className={`${view==="grid" ?"hidden":"block"}`}>
+
+                  {/* Table */}
+                        <div className="overflow-x-auto">
+                          <table className="table">
+                            <thead>
+                              <tr>
+                                <th>No.</th>
+                                <th>Patient</th>
+                                <th>Blood Type</th>
+                                <th>Hospital</th>
+                                <th>Status</th>
+                                <th>Required By</th>
+                                <th>Actions</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              
+                              {requestes.map((req,index)=><DonationRequestsTable req={req} page={page} key={index} index={index}></DonationRequestsTable>)}
+                
+                              
+                            </tbody>
+                          </table>
+                        </div>
+
+            </div>
+
+
+
 
             {/* paginaton */}
 
