@@ -1,5 +1,6 @@
 import React, { useContext } from 'react';
 import {  MdLogin, MdOutlineDashboard, MdOutlineLogin } from 'react-icons/md';
+import { FaHome, FaHandsHelping, FaSearch, FaDonate, FaBlog } from "react-icons/fa";
 import { Link, NavLink, useNavigate } from 'react-router';
 
 import Swal from 'sweetalert2';
@@ -46,39 +47,40 @@ const Navbar = () => {
     })
   }
 });
-
-
-    
    }
-   const links=<>
-     <li>
+  const links = <>
+  <li>
     <NavLink to="/" end className={({ isActive }) => isActive ? "text-red-500 font-bold" : ""}>
-      Home
+      <FaHome className="inline-block " /> Home
     </NavLink>
   </li>
-     <li>
+
+  <li>
     <NavLink to="/all-donation-requests" end className={({ isActive }) => isActive ? "text-red-500 font-bold" : ""}>
-     Donation Requests
+      <FaHandsHelping className="inline-block " /> Donation Requests
     </NavLink>
   </li>
-     <li>
+
+  <li>
     <NavLink to="/searchDonors" end className={({ isActive }) => isActive ? "text-red-500 font-bold" : ""}>
-    Search Donors
+      <FaSearch className="inline-block " /> Search Donors
     </NavLink>
   </li>
-    {user &&  <li>
-    <NavLink to="/funding" end className={({ isActive }) => isActive ? "text-red-500 font-bold" : ""}>
-    Funding
-    </NavLink>
-  </li>}
-     <li>
+
+  {user && (
+    <li>
+      <NavLink to="/funding" end className={({ isActive }) => isActive ? "text-red-500 font-bold" : ""}>
+        <FaDonate className="inline-block " /> Funding
+      </NavLink>
+    </li>
+  )}
+
+  <li>
     <NavLink to="/blogs" end className={({ isActive }) => isActive ? "text-red-500 font-bold" : ""}>
-    Blogs
+      <FaBlog className="inline-block " /> Blogs
     </NavLink>
   </li>
-  
-  
-    </>
+</>
     return (
        <div className="navbar  bg-base-100  shadow-sm sticky top-0 z-50 md:px-10">
   <div className="navbar-start">
@@ -93,7 +95,7 @@ const Navbar = () => {
       {!user &&  <li><Link to="/login"><MdOutlineLogin />Login / Sign Up</Link></li>}
       </ul>
     </div>
-    <a className=" font-bold text-xl  flex items-center "><span className='text-primary mr-1'><FaDroplet size={23} className='text-[#d53131]' />
+    <a className=" font-bold text-xl  flex items-center "><span className='text-primary '><FaDroplet size={23} className='text-[#d53131]' />
 </span>Blood<span className='text-[#d53131]'>Lagbe?</span></a>
   </div>
   <div className="navbar-center hidden lg:flex">

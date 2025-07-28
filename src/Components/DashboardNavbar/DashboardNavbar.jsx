@@ -1,31 +1,90 @@
 import React, { useContext } from 'react';
 import {  MdLogin, MdOutlineDashboard, MdOutlineLogin } from 'react-icons/md';
-import { Link, NavLink, useNavigate } from 'react-router';
+import { Link, NavLink } from 'react-router';
+import { FaHome, FaHandsHelping, FaSearch, FaDonate, FaBlog } from "react-icons/fa";
 
 import Swal from 'sweetalert2';
 import { LuLogOut } from 'react-icons/lu';
 import { Tooltip } from 'react-tooltip';
 import { FaDroplet } from 'react-icons/fa6';
 import { AuthContext } from '../../Contexts/AuthContext';
+import { Links } from 'react-router';
 
 const DashboardNavbar = () => {
   const {user}=useContext(AuthContext)
  
   
-   const links=<>
+    const links = <>
+     <li >
+       <NavLink to="/" end className={({ isActive }) => isActive ? "text-red-500 font-bold" : ""}>
+         <FaHome className="inline-block " /> Home
+       </NavLink>
+     </li>
+   
      <li>
-    <NavLink to="/" end className={({ isActive }) => isActive ? "text-red-500 font-bold" : ""}>
-      Home
-    </NavLink>
-  </li>
+       <NavLink to="/all-donation-requests" end className={({ isActive }) => isActive ? "text-red-500 font-bold" : ""}>
+         <FaHandsHelping className="inline-block " /> Donation Requests
+       </NavLink>
+     </li>
+   
      <li>
-    <NavLink to="/" end className={({ isActive }) => isActive ? "text-red-500 font-bold" : ""}>
-     Donation Requests
-    </NavLink>
-  </li>
-  
-  
-    </>
+       <NavLink to="/searchDonors" end className={({ isActive }) => isActive ? "text-red-500 font-bold" : ""}>
+         <FaSearch className="inline-block " /> Search Donors
+       </NavLink>
+     </li>
+   
+     {user && (
+       <li>
+         <NavLink to="/funding" end className={({ isActive }) => isActive ? "text-red-500 font-bold" : ""}>
+           <FaDonate className="inline-block " /> Funding
+         </NavLink>
+       </li>
+     )}
+   
+     <li>
+       <NavLink to="/blogs" end className={({ isActive }) => isActive ? "text-red-500 font-bold" : ""}>
+         <FaBlog className="inline-block " /> Blogs
+       </NavLink>
+     </li>
+   </>
+
+
+    const dropDownLinks = <>
+     <li className="block md:hidden">
+       <NavLink to="/" end className={({ isActive }) => isActive ? "text-red-500 font-bold" : ""}>
+         <FaHome className="inline-block " /> Home
+       </NavLink>
+     </li>
+   
+     <li className="block md:hidden">
+       <NavLink to="/all-donation-requests" end className={({ isActive }) => isActive ? "text-red-500 font-bold" : ""}>
+         <FaHandsHelping className="inline-block " /> Donation Requests
+       </NavLink>
+     </li>
+   
+     <li className="block md:hidden">
+       <NavLink to="/searchDonors" end className={({ isActive }) => isActive ? "text-red-500 font-bold" : ""}>
+         <FaSearch className="inline-block " /> Search Donors
+       </NavLink>
+     </li>
+   
+     {user && (
+       <li className="block md:hidden">
+         <NavLink to="/funding" end className={({ isActive }) => isActive ? "text-red-500 font-bold" : ""}>
+           <FaDonate className="inline-block " /> Funding
+         </NavLink>
+       </li>
+     )}
+   
+     <li className="block md:hidden">
+       <NavLink to="/blogs" end className={({ isActive }) => isActive ? "text-red-500 font-bold" : ""}>
+         <FaBlog className="inline-block " /> Blogs
+       </NavLink>
+     </li>
+   </>
+
+
+
     return (
        <div className="navbar  bg-base-100  shadow-sm sticky top-0 z-50 md:px-10">
   <div className="navbar-start">
@@ -65,7 +124,7 @@ const DashboardNavbar = () => {
                 <p className='text-xs'>{user?.email}</p>
               </div>
               <ul>
-                {links}
+               {dropDownLinks}
 
                 <li>
                   <Link to="/dashboard" end className={({ isActive }) => isActive ? "text-red-500 font-bold" : ""} >
@@ -76,6 +135,7 @@ const DashboardNavbar = () => {
                 
                 
               </ul>
+              
             </div>
           </div>) : <Link to="/login">
             <button className='md:flex hidden items-center gap-1 px-3 py-3 hover:bg-[#d53131] rounded-lg hover:text-white'><MdLogin />Login</button>
