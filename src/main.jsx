@@ -15,12 +15,14 @@ const queryClient = new QueryClient();
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    
+    <div className='font-urbanist'>
+      
       <AuthProvider>
       <QueryClientProvider client={queryClient}>
           <RouterProvider router={router}></RouterProvider>
       </QueryClientProvider>
       </AuthProvider>
+    </div>
     
   </StrictMode>,
 )

@@ -133,7 +133,7 @@ const AddBlog = () => {
               <option value="published">Published</option>
             </select>
 
-            <button type="submit" className="btn btn-error w-full flex items-center gap-2">
+            <button type="submit" className="btn bg-[#d53131] text-white w-full flex items-center gap-2">
               <FaEye /> Publish Blog
             </button>
           </div>
