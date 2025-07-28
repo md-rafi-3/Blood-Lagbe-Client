@@ -60,7 +60,8 @@ export default function CheckoutForm() {
   }).then(res=>{
    console.log(res.data)
    if(res.data.insertedId){
- 
+
+document.getElementById("donation_modal").close();
  Swal.fire({
           icon: "success",
           title: "Payment Successful",
@@ -82,41 +83,56 @@ export default function CheckoutForm() {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-4 bg-white p-6 rounded shadow">
-      <h2 className="text-xl font-bold mb-2">Give a Donation</h2>
+      <>
+     
 
-      <input
-        type="number"
-        placeholder="Enter Amount ($)"
-        value={amount}
-        min={1}
-        onChange={(e) => setAmount(e.target.value)}
-        className="w-full border px-3 py-2 rounded"
-      />
+      {/* Modal */}
+      <dialog id="donation_modal" className="modal">
+        <div className="modal-box w-full max-w-md">
+          <h3 className="font-bold text-lg mb-4 text-center">Give a Donation</h3>
 
-      <CardElement
-        className="p-3 border rounded"
-        options={{
-          style: {
-            base: {
-              fontSize: "16px",
-              color: "#424770",
-              "::placeholder": { color: "#aab7c4" },
-            },
-            invalid: { color: "#9e2146" },
-          },
-        }}
-      />
+          <form onSubmit={handleSubmit} className="space-y-4">
+            <input
+              type="number"
+              placeholder="Enter Amount ($)"
+              value={amount}
+              min={1}
+              onChange={(e) => setAmount(e.target.value)}
+              className="input input-bordered w-full"
+            />
 
-      <button
-        type="submit"
-        disabled={!stripe || processing}
-        className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 w-full"
-      >
-        {processing ? "Processing..." : `Pay $${amount || ""}`}
-      </button>
+            <CardElement
+              className="p-3 border rounded"
+              options={{
+                style: {
+                  base: {
+                    fontSize: "16px",
+                    color: "#424770",
+                    "::placeholder": { color: "#aab7c4" },
+                  },
+                  invalid: { color: "#9e2146" },
+                },
+              }}
+            />
 
-      {error && <p className="text-red-500 text-sm">{error}</p>}
-    </form>
+            {error && <p className="text-red-500 text-sm">{error}</p>}
+
+            <button
+              type="submit"
+              disabled={!stripe || processing}
+              className="btn  text-white bg-[#d53131] w-full"
+            >
+              {processing ? "Processing..." : `Pay $${amount || ""}`}
+            </button>
+          </form>
+
+          <div className="modal-action mt-4">
+            <form method="dialog">
+              <button className="btn">Close</button>
+            </form>
+          </div>
+        </div>
+      </dialog>
+    </>
   );
 }
