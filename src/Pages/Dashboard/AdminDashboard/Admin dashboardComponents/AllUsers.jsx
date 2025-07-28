@@ -5,22 +5,31 @@ import { useState } from "react";
 
 const AllUsers = () => {
   const axios=useAxiosSecure()
+  const [status,setStatus]=useState("")
+  const [name,setName]=useState('')
   const [page, setPage] = useState(1)
   const [totalPages, setTotalPages] = useState(1);
   
 
-  const fetchUsers=async(page)=>{
-   const res=await axios.get(`/users?page=${page}`);
+  const fetchUsers=async(querys)=>{
+   const res=await axios.get("/users", { params: querys});
    setTotalPages(Math.ceil(res.data.totalCount/5))
    return res.data.result;
   }
 
+  const querys={
+    page,
+    status,
+    name
+  }
+
   const { data:users=[], isLoading, error } = useQuery({
-    queryKey: ['users',page],
-    queryFn: ()=>fetchUsers(page),
+    queryKey: ['users',querys],
+    queryFn: ()=>fetchUsers(querys),
     keepPreviousData: true,
   })
  
+   console.log(status,name)
 
   // useEffect(()=>{
   //   axios.get("/users").then(res=>{
@@ -54,12 +63,14 @@ const AllUsers = () => {
           <input
             type="text"
             placeholder="Search users..."
+            onChange={(e)=>setName(e.target.value)}
+            defaultValue={name}
             className="input input-bordered w-full md:w-1/2"
           />
-          <select className="select select-bordered w-full md:w-1/4">
-            <option>All Status</option>
-            <option>Active</option>
-            <option>Blocked</option>
+          <select className="select select-bordered w-full md:w-1/4" defaultValue={status} onChange={(e)=>setStatus(e.target.value)}>
+             <option value="">All Status</option>
+      <option value="active">Active</option>
+      <option value="blocked">Blocked</option>
           </select>
         </div>
 
@@ -71,9 +82,9 @@ const AllUsers = () => {
                 <th>User</th>
                 <th>Email</th>
                 <th>Role</th>
-                <th>Blood Type</th>
+                <th>Blood Group</th>
                 <th>Status</th>
-                <th>Join Date</th>
+               
                 <th>Actions</th>
               </tr>
             </thead>
@@ -101,7 +112,7 @@ const AllUsers = () => {
                   <td>
                     <span className={statusClass(user.status)}>{user?.status}</span>
                   </td>
-                  <td>{user.joinDate}</td>
+                 
                   <td>
                     <button className="btn btn-sm btn-ghost">•••</button>
                   </td>
