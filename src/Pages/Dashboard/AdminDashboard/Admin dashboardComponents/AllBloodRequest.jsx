@@ -1,7 +1,22 @@
 import React from "react";
 import { FaSearch, FaEllipsisV, FaCalendarAlt } from "react-icons/fa";
+import useAxiosSecure from "../../../../Hooks/useAxiosSecure";
+import { useQuery } from "@tanstack/react-query";
 
 export default function AllBloodRequest() {
+  const axiosSecure=useAxiosSecure()
+
+  const fetchReq=async()=>{
+    const res=await axiosSecure(`/all-blood-req`);
+    return res.data;
+  }
+
+  const { data:allReq=[], isLoading, error } = useQuery({
+    queryKey: ['Allreq'],
+    queryFn: fetchReq,
+  })
+
+  console.log("all req",allReq)
   return (
     <div className="p-6 space-y-6">
       {/* Header */}
@@ -31,11 +46,10 @@ export default function AllBloodRequest() {
           <table className="table">
             <thead>
               <tr>
+                <th>No.</th>
                 <th>Patient</th>
                 <th>Blood Type</th>
                 <th>Hospital</th>
-                <th>Units Needed</th>
-                <th>Urgency</th>
                 <th>Status</th>
                 <th>Required By</th>
                 <th>Actions</th>
@@ -43,72 +57,23 @@ export default function AllBloodRequest() {
             </thead>
             <tbody>
               {/* Row 1 */}
-              <tr>
+             {allReq.map((req,index)=>( <tr>
+              <td>{index+1}</td>
                 <td>
                   <div>
-                    <p className="font-semibold">Alice Johnson</p>
-                    <p className="text-sm text-gray-500">+1234567890</p>
+                    <p className="font-semibold">{req.recipientName}</p>
+                    <p className="text-sm text-gray-500">{req.requesterEmail}</p>
                   </div>
                 </td>
-                <td><span className="badge badge-neutral">O+</span></td>
-                <td>City General Hospital</td>
-                <td className="font-medium">3 units</td>
-                <td><span className="badge badge-error">High</span></td>
-                <td><span className="badge badge-warning">Pending</span></td>
-                <td><span className="flex items-center gap-1"><FaCalendarAlt /> 2024-01-22</span></td>
+                <td><span className="badge badge-neutral">{req.bloodGroup}</span></td>
+                <td>{req.hospital}</td>
+                
+                <td><span className="badge badge-warning">{req.status}</span></td>
+                <td><span className="flex items-center gap-1"><FaCalendarAlt /> {req.donationDate}</span></td>
                 <td><FaEllipsisV /></td>
-              </tr>
+              </tr>))}
 
-              {/* Row 2 */}
-              <tr>
-                <td>
-                  <div>
-                    <p className="font-semibold">Bob Smith</p>
-                    <p className="text-sm text-gray-500">+1234567891</p>
-                  </div>
-                </td>
-                <td><span className="badge badge-neutral">A-</span></td>
-                <td>St. Mary's Medical Center</td>
-                <td className="font-medium">2 units</td>
-                <td><span className="badge badge-warning">Medium</span></td>
-                <td><span className="badge badge-info">Approved</span></td>
-                <td><span className="flex items-center gap-1"><FaCalendarAlt /> 2024-01-25</span></td>
-                <td><FaEllipsisV /></td>
-              </tr>
-
-              {/* Row 3 */}
-              <tr>
-                <td>
-                  <div>
-                    <p className="font-semibold">Carol Brown</p>
-                    <p className="text-sm text-gray-500">+1234567892</p>
-                  </div>
-                </td>
-                <td><span className="badge badge-neutral">B+</span></td>
-                <td>Metro Health Hospital</td>
-                <td className="font-medium">1 units</td>
-                <td><span className="badge badge-success">Low</span></td>
-                <td><span className="badge badge-success">Completed</span></td>
-                <td><span className="flex items-center gap-1"><FaCalendarAlt /> 2024-01-20</span></td>
-                <td><FaEllipsisV /></td>
-              </tr>
-
-              {/* Row 4 */}
-              <tr>
-                <td>
-                  <div>
-                    <p className="font-semibold">David Wilson</p>
-                    <p className="text-sm text-gray-500">+1234567893</p>
-                  </div>
-                </td>
-                <td><span className="badge badge-neutral">AB-</span></td>
-                <td>Emergency Care Center</td>
-                <td className="font-medium">4 units</td>
-                <td><span className="badge badge-error">Critical</span></td>
-                <td><span className="badge badge-warning">Pending</span></td>
-                <td><span className="flex items-center gap-1"><FaCalendarAlt /> 2024-01-21</span></td>
-                <td><FaEllipsisV /></td>
-              </tr>
+              
             </tbody>
           </table>
         </div>

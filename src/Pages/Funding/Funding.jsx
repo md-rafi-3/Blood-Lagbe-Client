@@ -28,7 +28,7 @@ const Funding = () => {
 
   console.log(fundingData)
     return (
-        <div className="max-w-md mx-auto mt-10">
+        <div className="max-w-md mx-auto mt-10 px-3">
             <Elements stripe={stripePromise}>
       <CheckoutForm />
     </Elements>

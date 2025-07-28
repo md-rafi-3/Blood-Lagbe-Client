@@ -24,7 +24,7 @@ const DonationRequests = () => {
   })
   console.log(requestes)
     return (
-        <div className='max-w-7xl mx-auto'>
+        <div className='max-w-7xl mx-auto px-3'>
 
              <div className='flex justify-end py-5'>
                 <div className="flex items-center bg-base-200 rounded-lg">
