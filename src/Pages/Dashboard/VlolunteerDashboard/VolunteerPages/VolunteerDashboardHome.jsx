@@ -3,7 +3,7 @@ import { format } from 'date-fns';
 import useAxiosSecure from "../../../../Hooks/useAxiosSecure";
 import { useQuery } from "@tanstack/react-query";
 
-const AdminDashboardHome = () => {
+const VolunteerDashboardHome  = () => {
   
   const axios=useAxiosSecure()
   const primaryColor = "#d53131";
@@ -31,7 +31,7 @@ const AdminDashboardHome = () => {
         className="rounded-xl text-white p-6 flex flex-col gap-2 relative overflow-hidden"
         style={{ backgroundColor: primaryColor }}
       >
-        <h2 className="text-2xl font-bold">Welcome back, Admin!</h2>
+        <h2 className="text-2xl font-bold">Welcome back, Volunteer!</h2>
         <p>Here's what's happening with your blood donation platform today.</p>
         <p className="text-sm">{formattedTime}</p>
         <div className="absolute top-4 right-6 opacity-20">
@@ -115,4 +115,4 @@ const AdminDashboardHome = () => {
   );
 };
 
-export default AdminDashboardHome;
+export default VolunteerDashboardHome ;

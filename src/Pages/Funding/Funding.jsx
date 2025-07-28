@@ -16,7 +16,7 @@ const Funding = () => {
     
     const fetchFunding=async(page)=>{
         const res=await axiosSecure.get(`/funding-data?page=${page}`)
-         setTotalPages(Math.ceil(res.data.totalCount/10))
+         setTotalPages(Math.ceil(res.data.totalCount/5))
         return res.data.result
     }
 

@@ -1,22 +1,53 @@
 import React, { useContext } from 'react';
-import { NavLink, Outlet } from 'react-router';
+import { NavLink, Outlet, useNavigate } from 'react-router';
 import { FaHome, FaUser, FaSignOutAlt, FaUsers, FaFileAlt, FaPlusCircle, FaListAlt } from 'react-icons/fa';
 import { MdOutlineBloodtype } from 'react-icons/md';
 import useRole from '../Hooks/useRole';
 import { AuthContext } from '../Contexts/AuthContext';
 import { RiMenu3Fill } from 'react-icons/ri';
 import DashboardNavbar from '../Components/DashboardNavbar/DashboardNavbar';
+import Swal from 'sweetalert2';
 
 const DashbordLayout = () => {
   const {role}=useRole()
   const {userSignOut}=useContext(AuthContext)
-  const handleSignOut=()=>{
-  userSignOut().then(()=>{
-  alert("User sing out success")
-  }).catch((error) => {
-    console.log(error.message)
-  })
-}
+  const navigate=useNavigate()
+  // console.log(user)
+   const handleSignOut=()=>{
+    
+   Swal.fire({
+  title: "Are you sure?",
+  text: "You will be logged out from your account.",
+  icon: "warning",
+  showCancelButton: true,
+  confirmButtonColor: "#3085d6",
+  cancelButtonColor: "#d33",
+  confirmButtonText: "Yes, log me out!",
+  cancelButtonText: "Cancel"
+}).then((result) => {
+  if (result.isConfirmed) {
+    userSignOut().then(() => {
+      Swal.fire({
+  position: "center",
+  icon: "success",
+  title: "Logged Out Successfully!",
+  showConfirmButton: false,
+  timer: 1500
+});
+
+   setTimeout(()=>navigate("/login"),1500)
+    }).catch((error) => {
+        Swal.fire({
+  position: "center",
+  icon: "error",
+  title: error.message,
+  showConfirmButton: false,
+  timer: 1500
+});
+    })
+  }
+});
+   }
 
   const adminLinks = <>
    
@@ -185,7 +216,7 @@ const DashbordLayout = () => {
     {/* 🔸 All Blood Donation Requests Page (Volunteer limited permissions) */}
     <li>
       <NavLink
-        to="/dashboard/all-blood-donation-request"
+        to="/dashboard/volunteer-all-blood-donation-request"
         className={({ isActive }) =>
           `flex items-center gap-3 px-3 py-2 rounded-md font-medium transition ${isActive
             ? 'bg-[#d53131] text-white'

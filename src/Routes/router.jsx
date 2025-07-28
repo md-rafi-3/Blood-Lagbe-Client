@@ -18,6 +18,8 @@ import DonationRequests from "../Pages/DonationRequests/DonationRequests";
 import Blog from "../Pages/Blog/Blog";
 import Funding from "../Pages/Funding/Funding";
 import DonationRequestsDetails from "../Pages/DonationRequests/DonationRequestsDetails";
+import VolunteerRoute from "./VolunteerRoute";
+import VolunteerAllBloodRequests from "../Pages/Dashboard/VlolunteerDashboard/VolunteerPages/VolunteerAllBloodRequests";
 
 
 
@@ -78,6 +80,7 @@ export const router = createBrowserRouter([
                     path:"all-blood-donation-request",
                     element:<AdminRoute><AllBloodRequest></AllBloodRequest></AdminRoute>
                 },
+                
                 {
                     path:"content-management",
                     element:<AdminRoute><ContentManagement></ContentManagement></AdminRoute>
@@ -93,7 +96,11 @@ export const router = createBrowserRouter([
                 {
                     path:"my-donation-requests",
                     element:<PriveteRoute><MyDonationRequest></MyDonationRequest></PriveteRoute>
-                }
+                },
+                {
+                    path:"volunteer-all-blood-donation-request",
+                    element:<VolunteerRoute><VolunteerAllBloodRequests></VolunteerAllBloodRequests></VolunteerRoute>
+                },
             ]
         }
   

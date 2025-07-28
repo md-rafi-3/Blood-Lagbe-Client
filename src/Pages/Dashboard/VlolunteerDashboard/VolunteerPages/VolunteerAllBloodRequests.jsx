@@ -3,14 +3,14 @@ import { FaSearch, FaEllipsisV, FaCalendarAlt } from "react-icons/fa";
 import useAxiosSecure from "../../../../Hooks/useAxiosSecure";
 import { useQuery } from "@tanstack/react-query";
 
-export default function AllBloodRequest() {
+export default function VolunteerAllBloodRequests() {
   const axiosSecure=useAxiosSecure()
    const [page, setPage] = useState(1)
     const [totalPages, setTotalPages] = useState(1);
 
   const fetchReq=async(page)=>{
     const res=await axiosSecure(`/all-blood-req?page=${page}`);
-    setTotalPages(Math.ceil(res.data.totalCount/10))
+    setTotalPages(Math.ceil(res.data.totalCount/5))
     return res.data.result;
   }
 

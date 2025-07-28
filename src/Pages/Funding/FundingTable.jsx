@@ -3,7 +3,7 @@ import React from 'react';
 const FundingTable = ({fund,index,page}) => {
     return (
         <tr>
-        <th>{(index+1)+((page-1)*10)}</th>
+        <th>{(index+1)+((page-1)*5)}</th>
         <td>{fund.name}</td>
         <td>{fund.amount}$</td>
        <td>
