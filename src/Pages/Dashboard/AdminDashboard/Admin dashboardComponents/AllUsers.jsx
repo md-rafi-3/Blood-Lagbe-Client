@@ -44,7 +44,7 @@ const AllUsers = () => {
 
   
   const statusClass = (status) =>
-    status === "Active"
+    status === "active"
       ? "badge badge-success"
       : "badge badge-error";
 

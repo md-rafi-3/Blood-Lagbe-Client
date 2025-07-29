@@ -2,11 +2,13 @@ import React, { useContext, useState } from 'react';
 import { AuthContext } from '../../Contexts/AuthContext';
 import { FaEnvelope, FaLock, FaEye, FaEyeSlash } from "react-icons/fa";
 import Swal from 'sweetalert2';
-import { Link } from 'react-router';
+import { Link, useLocation, useNavigate } from 'react-router';
 
 const Login = () => {
   const { userLogin } = useContext(AuthContext);
   const [showPassword, setShowPassword] = useState(false);
+    const location=useLocation()
+  const navigate=useNavigate()
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -19,7 +21,11 @@ const Login = () => {
       if (result.user) {
         Swal.fire("Login Successful", "", "success");
         form.reset();
-      }
+         
+        setTimeout(() => {
+        navigate(`${location.state ? location.state : "/"}`)
+      }, 1300)}
+      
     } catch (error) {
       Swal.fire("Login Failed", error.message, "error");
     }

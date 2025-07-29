@@ -16,7 +16,7 @@ import upazilas from "../../assets/Data/upazilas.json";
 import axios from "axios";
 import { AuthContext } from "../../Contexts/AuthContext";
 import useAxiosPublic from "../../Hooks/axiosPublic";
-import { Link } from "react-router";
+import { Link, useLocation, useNavigate } from "react-router";
 
 const SignUp = () => {
   const axiosPublic=useAxiosPublic()
@@ -25,6 +25,8 @@ const SignUp = () => {
   const [filteredDistricts, setFilteredDistricts] = useState([]);
   const [filteredUpazilas, setFilteredUpazilas] = useState([]);
   const [profilePic, setProfilePic] = useState("");
+    const navLocation=useLocation()
+  const navigate=useNavigate()
 
   const [location, setLocation] = useState({
     division: "",
@@ -102,7 +104,7 @@ const SignUp = () => {
       status: "active",
     };
 
-    console.log("✅ Submitted Data", finalUserData);
+    // console.log("✅ Submitted Data", finalUserData);
   
     console.log("login data",finalUserData.email,finalUserData.password)
     // Backend submit placeholder
@@ -126,6 +128,10 @@ const SignUp = () => {
     setProfilePic("");
     setLocation({ division: "", district: "", upazila: "" });
             }
+
+             setTimeout(() => {
+        navigate(`${ navLocation.state ?  navLocation.state : "/"}`)
+      }, 1300)
           }).catch((error) => {
             console.log(error.message)
           })
