@@ -2,8 +2,12 @@ import { FaUsers, FaDollarSign, FaTint } from "react-icons/fa";
 import { format } from 'date-fns';
 import useAxiosSecure from "../../../../Hooks/useAxiosSecure";
 import { useQuery } from "@tanstack/react-query";
+import { Link } from "react-router";
+import { useContext } from "react";
+import { AuthContext } from "../../../../Contexts/AuthContext";
 
-const VolunteerDashboardHome  = () => {
+const VolunteerDashboardHome = () => {
+  const {user}=useContext(AuthContext)
   
   const axios=useAxiosSecure()
   const primaryColor = "#d53131";
@@ -20,8 +24,16 @@ const VolunteerDashboardHome  = () => {
     queryFn: fetchTotal,
   })
 
-  console.log(total)
+  const activities = total?.activity || [];
 
+  console.log(activities)
+
+
+
+
+
+
+  
   
 
   return (
@@ -31,7 +43,7 @@ const VolunteerDashboardHome  = () => {
         className="rounded-xl text-white p-6 flex flex-col gap-2 relative overflow-hidden"
         style={{ backgroundColor: primaryColor }}
       >
-        <h2 className="text-2xl font-bold">Welcome back, Volunteer!</h2>
+        <h2 className="text-2xl font-bold">Welcome back, {user.displayName}!</h2>
         <p>Here's what's happening with your blood donation platform today.</p>
         <p className="text-sm">{formattedTime}</p>
         <div className="absolute top-4 right-6 opacity-20">
@@ -81,20 +93,16 @@ const VolunteerDashboardHome  = () => {
           <h4 className="text-lg font-semibold mb-4">Recent Activity</h4>
           <div className="space-y-4">
             <div className="p-4  rounded-lg bg-gray-50">
+             
+             { activities.map(activity=> <div className="p-4  rounded-lg bg-gray-50">
               <p className="text-sm font-semibold text-red-500">
-                New user registered
+                Blood request submitted by {activity.requesterName}
               </p>
               <p className="text-sm text-gray-700">
-                John Doe joined as a donor
+                Urgent {activity.bloodGroup} blood needed at {activity.hospital}
               </p>
-            </div>
-            <div className="p-4  rounded-lg bg-gray-50">
-              <p className="text-sm font-semibold text-red-500">
-                Blood request submitted
-              </p>
-              <p className="text-sm text-gray-700">
-                Urgent O+ blood needed at City Hospital
-              </p>
+            </div>)}
+              
             </div>
           </div>
         </div>
@@ -102,12 +110,12 @@ const VolunteerDashboardHome  = () => {
         <div className="card bg-white shadow-md p-6 border border-gray-200 rounded-2xl">
           <h4 className="text-lg font-semibold mb-4">Quick Actions</h4>
           <div className="flex flex-col  gap-3">
-            <button className="btn bg-[#d53131] hover:bg-[#c02626] text-white w-full flex items-center justify-center py-2 rounded-lg">
+           <Link to="/dashboard/all-users"> <button className="btn bg-[#d53131] hover:bg-[#c02626] text-white w-full flex items-center justify-center py-2 rounded-lg">
               <FaUsers className="mr-2" /> View All Users
-            </button>
-            <button className="btn bg-[#d53131] hover:bg-[#c02626] text-white w-full flex items-center justify-center py-2 rounded-lg">
+            </button></Link>
+           <Link  to="/dashboard/all-blood-donation-request"> <button className="btn bg-[#d53131] hover:bg-[#c02626] text-white w-full flex items-center justify-center py-2 rounded-lg">
               <FaTint className="mr-2" /> Blood Requests
-            </button>
+            </button></Link>
           </div>
         </div>
       </div>
@@ -115,4 +123,4 @@ const VolunteerDashboardHome  = () => {
   );
 };
 
-export default VolunteerDashboardHome ;
+export default VolunteerDashboardHome;

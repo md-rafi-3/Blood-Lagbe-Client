@@ -90,7 +90,7 @@ export default function DonorDashboardHome() {
 
           <div className="mt-6 text-right">
             <Link to="/dashboard/my-donation-requests">
-              <button className="btn btn-primary">View My All Requests</button>
+              <button className="btn bg-[#d53131] text-white">View My All Requests</button>
             </Link>
           </div>
         </div>

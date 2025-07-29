@@ -1,17 +1,20 @@
 import { FaArrowLeft, FaSave } from "react-icons/fa";
 import JoditEditor from "jodit-react";
-import { Link, useParams } from "react-router";
+import { Link, useNavigate, useParams } from "react-router";
 import Swal from "sweetalert2";
 import useAxiosPublic from "../../../../Hooks/axiosPublic";
 import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../../../../Hooks/useAxiosSecure";
 import { useEffect, useState } from "react";
+import useRole from "../../../../Hooks/useRole";
 
 const EditBlog = () => {
   const { id } = useParams();
   const axiosPublic = useAxiosPublic();
   const axiosSecure = useAxiosSecure();
   const [blog, setBlog] = useState(null);
+  const{role}=useRole()
+  const navigate=useNavigate()
 
   // Fetch blog
   const fetchBlog = async () => {
@@ -62,6 +65,10 @@ const EditBlog = () => {
       });
     }
   };
+
+  if(role==="donor"){
+    return navigate("/")
+  }
 
   if (isLoading || !blog) {
     return <div className="text-center py-10">Loading...</div>;
@@ -116,7 +123,7 @@ const EditBlog = () => {
               className="select select-bordered w-full mb-3"
             >
               <option value="draft">Draft</option>
-              <option value="published">Published</option>
+            {role==="admin" &&   <option value="published">Published</option>}
             </select>
 
             <button type="submit" className="btn bg-blue-600 text-white w-full flex items-center gap-2">

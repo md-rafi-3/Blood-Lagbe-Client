@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import { FaArrowLeft, FaSave, FaEye } from "react-icons/fa";
 import JoditEditor from "jodit-react";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import axios from "axios";
 import useAxiosPublic from "../../../../Hooks/axiosPublic";
 import Swal from "sweetalert2";
+import useRole from "../../../../Hooks/useRole";
 
 const AddBlog = () => {
   const [title, setTitle] = useState("");
@@ -14,6 +15,9 @@ const AddBlog = () => {
   const [metaDescription, setMetaDescription] = useState("");
   const [tags, setTags] = useState("");
   const axiosPublic=useAxiosPublic()
+  const {role}=useRole()
+  console.log(role)
+  const navigate=useNavigate()
 
   const IMAGE_BB_API_KEY = "YOUR_IMGBB_API_KEY"; 
 
@@ -81,6 +85,10 @@ const AddBlog = () => {
     }
   };
 
+  if(role==="donor"){
+    return navigate("/")
+  }
+
   return (
     <div className="p-3 max-w-7xl mx-auto">
       <Link to="/dashboard/content-management" className="btn btn-ghost mb-4  gap-2">
@@ -121,7 +129,7 @@ const AddBlog = () => {
           <div className="bg-white shadow rounded-xl p-5">
             <h2 className="font-semibold mb-3">Publish Settings</h2>
             <label>Author</label>
-            <input type="text" value="Admin" readOnly className="input input-bordered w-full mb-3" />
+            <input type="text" value={role} readOnly className="input input-bordered w-full mb-3" />
 
             <label>Status</label>
             <select
@@ -130,7 +138,7 @@ const AddBlog = () => {
               className="select select-bordered w-full mb-3"
             >
               <option value="draft">Draft</option>
-              <option value="published">Published</option>
+              {role==="admin"&&<option value="published">Published</option>}
             </select>
 
             <button type="submit" className="btn bg-[#d53131] text-white w-full flex items-center gap-2">

@@ -1,24 +1,66 @@
 import React, { useState } from "react";
 import { FaSearch, FaEllipsisV, FaCalendarAlt } from "react-icons/fa";
+import { HiDotsVertical } from "react-icons/hi";
+import { FaEye, FaEdit, FaTrash } from "react-icons/fa";
 import useAxiosSecure from "../../../../Hooks/useAxiosSecure";
 import { useQuery } from "@tanstack/react-query";
+import { Link } from "react-router";
+import Swal from "sweetalert2";
 
-export default function VolunteerAllBloodRequests() {
+
+export default function VolunteerAllBloodRequest() {
   const axiosSecure=useAxiosSecure()
+  const [text,setText]=useState("")
+  const [status,setStatus]=useState("")
    const [page, setPage] = useState(1)
     const [totalPages, setTotalPages] = useState(1);
+   
+    const queries={
+      text,
+      status
+    }
 
-  const fetchReq=async(page)=>{
-    const res=await axiosSecure(`/all-blood-req?page=${page}`);
-    setTotalPages(Math.ceil(res.data.totalCount/5))
+    console.log(queries)
+
+  const fetchReq=async(page,queries)=>{
+    const res=await axiosSecure(`/all-blood-req?page=${page}`,{params:queries});
+    setTotalPages(Math.ceil(res.data.totalCount/10))
     return res.data.result;
   }
 
-  const { data:allReq=[], isLoading, error } = useQuery({
-    queryKey: ['Allreq',page],
-    queryFn: ()=>fetchReq(page),
+  const { data:allReq=[], isLoading, error,refetch } = useQuery({
+    queryKey: ['Allreq',page,queries],
+    queryFn: ()=>fetchReq(page,queries),
      keepPreviousData: true,
   })
+
+  
+
+
+const handleStatusChange=async(newStatus, id)=>{
+  try {
+    const res = await axiosSecure.patch(`/update-req-status/${id}`, {
+      status: newStatus,
+    });
+
+    if (res.data.modifiedCount > 0) {
+      Swal.fire({
+        icon: "success",
+        title: "Status Updated!",
+        timer: 1500,
+        showConfirmButton: false,
+      });
+      refetch(); // Optional, if you're using React Query or similar
+    }
+  } catch (err) {
+    Swal.fire({
+      icon: "error",
+      title: "Update Failed",
+      text: err.message,
+    });
+  }
+
+}
 
   console.log("all req",allReq)
   return (
@@ -35,13 +77,15 @@ export default function VolunteerAllBloodRequests() {
         <div className="flex flex-col md:flex-row md:items-center gap-4 mb-6">
           <div className="relative w-full md:w-1/2">
             <FaSearch className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
-            <input type="text" placeholder="Search requests..." className="input input-bordered w-full pl-10" />
+            <input type="text" placeholder="Search requests..." defaultValue={text} onChange={(e)=>setText(e.target.value)} className="input input-bordered w-full pl-10" />
           </div>
-          <select className="select select-bordered md:w-40 w-full">
-            <option>All Status</option>
-            <option>Pending</option>
-            <option>Approved</option>
-            <option>Completed</option>
+          <select className="select select-bordered md:w-40 w-full" defaultValue={status} onChange={(e)=>setStatus(e.target.value)}>
+        
+         <option value="">All</option>
+         <option value="pending">Pending</option>
+              <option value="inprogress">In Progress</option>
+              <option value="done">Done</option>
+              <option value="canceled">Canceled</option>
           </select>
         </div>
 
@@ -74,7 +118,52 @@ export default function VolunteerAllBloodRequests() {
                 
                 <td><span className="badge badge-warning">{req.status}</span></td>
                 <td><span className="flex items-center gap-1"><FaCalendarAlt /> {req.donationDate}</span></td>
-                <td><FaEllipsisV /></td>
+               <td>
+  <div className="dropdown dropdown-end">
+    <label tabIndex={0} className="btn btn-ghost btn-xs">
+      <HiDotsVertical size={18} />
+    </label>
+    <ul
+      tabIndex={0}
+      className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52"
+    >
+      <li>
+        <Link to={`/donation-requests-details/${req._id}`}>
+          <button className="flex items-center gap-2">
+            <FaEye className="text-blue-500" />
+            View Details
+          </button>
+        </Link>
+      </li>
+
+      
+
+    
+
+      <li>
+        <details>
+          <summary className="flex items-center gap-2">
+            <FaEdit className="text-yellow-500" />
+            Update Status
+          </summary>
+          <div className="mt-2">
+            <select
+              className="select select-sm w-full"
+              defaultValue={req.status}
+               onChange={(e) => handleStatusChange(e.target.value, req._id)}
+             
+            >
+              <option value="pending">Pending</option>
+              <option value="inprogress">In Progress</option>
+              <option value="done">Done</option>
+              <option value="canceled">Canceled</option>
+            </select>
+          </div>
+        </details>
+      </li>
+    </ul>
+  </div>
+</td>
               </tr>))}
 
               

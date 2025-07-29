@@ -276,7 +276,7 @@ const DashbordLayout = () => {
     {/* 🔸 Content Management (volunteer can't publish/delete) */}
     <li>
       <NavLink
-        to="/dashboard/content-management"
+        to="/dashboard/volunteer-content-menage"
         className={({ isActive }) =>
           `flex items-center gap-3 px-3 py-2 rounded-md font-medium transition ${isActive
             ? 'bg-[#d53131] text-white'

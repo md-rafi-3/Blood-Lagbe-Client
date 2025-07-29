@@ -1,11 +1,13 @@
 import React, { useState, useRef, useEffect } from "react";
 import { FaEdit, FaTrash, FaEllipsisV, FaEyeSlash, FaEye } from "react-icons/fa";
 import { useNavigate } from "react-router";
+import useRole from "../Hooks/useRole";
 
 const BlogCard = ({ blog, handleDelete, handleStatusToggle }) => {
   const navigate = useNavigate();
   const [menuOpen, setMenuOpen] = useState(false);
   const menuRef = useRef();
+  const {role}=useRole()
 
   // Close menu on outside click
   useEffect(() => {
@@ -61,7 +63,7 @@ const BlogCard = ({ blog, handleDelete, handleStatusToggle }) => {
                   <FaEdit /> Edit
                 </li>
 
-                <li
+               {role==="admin"&& <li
                   className="px-4 py-2 hover:bg-gray-100 cursor-pointer flex items-center gap-2"
                   onClick={() => {
                     handleStatusToggle(
@@ -80,9 +82,9 @@ const BlogCard = ({ blog, handleDelete, handleStatusToggle }) => {
                       <FaEye /> Publish
                     </>
                   )}
-                </li>
+                </li>}
 
-                <li
+                {role==="admin"&&<li
                   className="px-4 py-2 hover:bg-red-100 text-red-600 cursor-pointer flex items-center gap-2"
                   onClick={() => {
                     handleDelete(blog._id);
@@ -90,7 +92,7 @@ const BlogCard = ({ blog, handleDelete, handleStatusToggle }) => {
                   }}
                 >
                   <FaTrash /> Delete
-                </li>
+                </li>}
               </ul>
             )}
           </div>

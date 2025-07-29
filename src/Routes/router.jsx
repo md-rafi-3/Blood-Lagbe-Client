@@ -24,6 +24,7 @@ import UpdateRequests from "../Pages/UpdateRequests/UpdateRequests";
 import EditBlog from "../Pages/Dashboard/AdminDashboard/Admin dashboardComponents/EditBlog";
 import BlogDetails from "../Pages/Blog/BlogDetails";
 import Profile from "../Pages/Profile/Profile";
+import VolunteerContentManage from "../Pages/Dashboard/VlolunteerDashboard/VolunteerPages/VolunteerContentManage";
 
 
 
@@ -97,11 +98,11 @@ export const router = createBrowserRouter([
                 },
                 {
                     path:"add-blog",
-                    element:<AdminRoute><Addblog></Addblog></AdminRoute>
+                    element:<PriveteRoute><Addblog></Addblog></PriveteRoute>
                 },
                 {
                     path:"edit-blog/:id",
-                    element:<AdminRoute><EditBlog></EditBlog></AdminRoute>
+                    element:<PriveteRoute><EditBlog></EditBlog></PriveteRoute>
                 },
                 {
                     path:"create-donation-request",
@@ -122,6 +123,10 @@ export const router = createBrowserRouter([
                 {
                     path:"profile",
                     element:<PriveteRoute><Profile></Profile></PriveteRoute>
+                },
+                {
+                    path:"volunteer-content-menage",
+                    element:<VolunteerRoute><VolunteerContentManage></VolunteerContentManage></VolunteerRoute>
                 }
             ]
         }
