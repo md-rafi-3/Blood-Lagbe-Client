@@ -20,8 +20,16 @@ const AdminDashboardHome = () => {
     queryFn: fetchTotal,
   })
 
-  console.log(total)
+  const activities = total?.activity || [];
 
+  console.log(activities)
+
+
+
+
+
+
+  
   
 
   return (
@@ -81,20 +89,16 @@ const AdminDashboardHome = () => {
           <h4 className="text-lg font-semibold mb-4">Recent Activity</h4>
           <div className="space-y-4">
             <div className="p-4  rounded-lg bg-gray-50">
+             
+             { activities.map(activity=> <div className="p-4  rounded-lg bg-gray-50">
               <p className="text-sm font-semibold text-red-500">
-                New user registered
+                Blood request submitted by {activity.requesterName}
               </p>
               <p className="text-sm text-gray-700">
-                John Doe joined as a donor
+                Urgent {activity.bloodGroup} blood needed at {activity.hospital}
               </p>
-            </div>
-            <div className="p-4  rounded-lg bg-gray-50">
-              <p className="text-sm font-semibold text-red-500">
-                Blood request submitted
-              </p>
-              <p className="text-sm text-gray-700">
-                Urgent O+ blood needed at City Hospital
-              </p>
+            </div>)}
+              
             </div>
           </div>
         </div>
