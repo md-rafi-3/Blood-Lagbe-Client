@@ -22,6 +22,7 @@ import VolunteerRoute from "./VolunteerRoute";
 import VolunteerAllBloodRequests from "../Pages/Dashboard/VlolunteerDashboard/VolunteerPages/VolunteerAllBloodRequests";
 import UpdateRequests from "../Pages/UpdateRequests/UpdateRequests";
 import EditBlog from "../Pages/Dashboard/AdminDashboard/Admin dashboardComponents/EditBlog";
+import BlogDetails from "../Pages/Blog/BlogDetails";
 
 
 
@@ -45,6 +46,10 @@ export const router = createBrowserRouter([
         {
             path:"blogs",
             element: <Blog></Blog>
+        },
+        {
+            path:"blogs-details/:id",
+            element: <BlogDetails></BlogDetails>
         },
         {
             path:"funding",
