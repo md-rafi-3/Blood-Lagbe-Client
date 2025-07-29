@@ -2,10 +2,12 @@ import React, { useEffect, useState, useRef, useContext } from "react";
 import Swal from "sweetalert2";
 import useAxiosSecure from "../../Hooks/useAxiosSecure";
 import { AuthContext } from "../../Contexts/AuthContext";
+import { useNavigate } from "react-router";
 
 const Profile = () => {
   const axiosSecure = useAxiosSecure();
   const {updateUser}=useContext(AuthContext)
+  const navigate=useNavigate()
 
   const [user, setUser] = useState(null);
   const [formData, setFormData] = useState({
@@ -24,7 +26,7 @@ const Profile = () => {
   const [loading, setLoading] = useState(false);
   const [avatarFile, setAvatarFile] = useState(null);
 
-  // আসল ডাটা সেভ করে রাখা, cancel এ ফেরত যাওয়ার জন্য
+ 
   const originalData = useRef({});
 
   useEffect(() => {
@@ -51,7 +53,6 @@ const Profile = () => {
     fetchProfile();
   }, [axiosSecure]);
 
-  // ইনপুট চেঞ্জ হ্যান্ডলার
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({
@@ -60,12 +61,12 @@ const Profile = () => {
     }));
   };
 
-  // Avatar ফাইল সিলেক্ট হলে সেট করা + প্রিভিউ দেখানো
+  
   const handleAvatarChange = (e) => {
     const file = e.target.files[0];
     if (file) {
       setAvatarFile(file);
-      // প্রিভিউ দেখানোর জন্য লোকালি URL সেট করা
+      
       setFormData((prev) => ({
         ...prev,
         avatar: URL.createObjectURL(file),
@@ -73,12 +74,12 @@ const Profile = () => {
     }
   };
 
-  // Edit ক্লিক করলে ফর্ম এডিটেবল হবে
+  
   const handleEdit = () => {
     setEditable(true);
   };
 
-  // Cancel ক্লিক করলে ফর্ম আগের ডাটায় ফিরে যাবে, editable off হবে
+  
   const handleCancel = () => {
     setFormData({
       name: originalData.current.name || "",
@@ -95,7 +96,7 @@ const Profile = () => {
     setEditable(false);
   };
 
-  // Image Upload to imgbb (or similar) and get URL
+  
   const uploadImageToBB = async (file) => {
     
     const form = new FormData();
@@ -110,7 +111,7 @@ const Profile = () => {
     else throw new Error("Image upload failed");
   };
 
-  // Save ক্লিক করলে ডাটা সেভ হবে + যদি avatar আপডেট থাকে তবে আগে upload হবে
+  
   const handleSave = async () => {
     setLoading(true);
     try {
@@ -138,7 +139,7 @@ const Profile = () => {
 
       const res = await axiosSecure.put("/user/profile", updatePayload);
 
-      if (res.data.success) {
+      if (res.data.modifiedCount) {
        
         
         setUser(updatePayload);
@@ -151,9 +152,8 @@ const Profile = () => {
           timer: 1500,
           showConfirmButton: false,
         });
-      } else {
-        throw new Error("Update failed");
-      }
+        navigate(0);
+      } 
     } catch (error) {
       Swal.fire({
         icon: "error",

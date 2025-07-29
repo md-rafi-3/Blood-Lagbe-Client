@@ -330,7 +330,7 @@ const DashbordLayout = () => {
               <div>
                 <h2 className="text-xl font-bold text-[#d53131]">Dashboard</h2>
                 <p className="text-sm text-gray-500"> {
-            role === "admin" ? "Admin Panel": role === "donor" ? "donor Panel" : role === "volunteer" ?"Volunteer Panel": null
+            role === "admin" ? "Admin Panel": role === "donor" ? "Donor Panel" : role === "volunteer" ?"Volunteer Panel": null
           }</p>
               </div>
             </div>
