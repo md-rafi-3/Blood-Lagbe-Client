@@ -65,6 +65,21 @@ const DashbordLayout = () => {
           <FaHome /> Dashboard Home
         </NavLink>
       </li>
+      {/* profile */}
+      <li>
+        <NavLink
+          to="/dashboard/profile"
+          end
+          className={({ isActive }) =>
+            `flex items-center gap-3 px-3 py-2 rounded-md font-medium transition ${
+              isActive ? 'bg-[#d53131] text-white' : 'hover:bg-gray-100 text-gray-800'
+            }`
+          }
+        >
+          <FaUser />
+ Profile
+        </NavLink>
+      </li>
 
       {/* 🔸 All Users Page */}
       <li>
@@ -151,6 +166,21 @@ const DashbordLayout = () => {
       </NavLink>
     </li>
 
+    <li>
+        <NavLink
+          to="/dashboard/profile"
+          end
+          className={({ isActive }) =>
+            `flex items-center gap-3 px-3 py-2 rounded-md font-medium transition ${
+              isActive ? 'bg-[#d53131] text-white' : 'hover:bg-gray-100 text-gray-800'
+            }`
+          }
+        >
+          <FaUser />
+ Profile
+        </NavLink>
+      </li>
+
     {/* 🔸 My Donation Requests Page */}
     <li>
       <NavLink
@@ -213,6 +243,21 @@ const DashbordLayout = () => {
       </NavLink>
     </li>
 
+
+     <li>
+        <NavLink
+          to="/dashboard/profile"
+          end
+          className={({ isActive }) =>
+            `flex items-center gap-3 px-3 py-2 rounded-md font-medium transition ${
+              isActive ? 'bg-[#d53131] text-white' : 'hover:bg-gray-100 text-gray-800'
+            }`
+          }
+        >
+          <FaUser />
+ Profile
+        </NavLink>
+      </li>
     {/* 🔸 All Blood Donation Requests Page (Volunteer limited permissions) */}
     <li>
       <NavLink

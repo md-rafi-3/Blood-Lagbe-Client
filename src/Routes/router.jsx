@@ -23,6 +23,7 @@ import VolunteerAllBloodRequests from "../Pages/Dashboard/VlolunteerDashboard/Vo
 import UpdateRequests from "../Pages/UpdateRequests/UpdateRequests";
 import EditBlog from "../Pages/Dashboard/AdminDashboard/Admin dashboardComponents/EditBlog";
 import BlogDetails from "../Pages/Blog/BlogDetails";
+import Profile from "../Pages/Profile/Profile";
 
 
 
@@ -83,6 +84,7 @@ export const router = createBrowserRouter([
                     path:"all-users",
                     element:<AdminRoute><AllUsers></AllUsers></AdminRoute>
                 },
+
                 
                 {
                     path:"all-blood-donation-request",
@@ -117,6 +119,10 @@ export const router = createBrowserRouter([
                     path:"volunteer-all-blood-donation-request",
                     element:<VolunteerRoute><VolunteerAllBloodRequests></VolunteerAllBloodRequests></VolunteerRoute>
                 },
+                {
+                    path:"profile",
+                    element:<PriveteRoute><Profile></Profile></PriveteRoute>
+                }
             ]
         }
   
