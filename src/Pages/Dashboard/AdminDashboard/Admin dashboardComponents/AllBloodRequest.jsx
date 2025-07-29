@@ -1,12 +1,19 @@
 import React, { useState } from "react";
 import { FaSearch, FaEllipsisV, FaCalendarAlt } from "react-icons/fa";
+import { HiDotsVertical } from "react-icons/hi";
+import { FaEye, FaEdit, FaTrash } from "react-icons/fa";
 import useAxiosSecure from "../../../../Hooks/useAxiosSecure";
 import { useQuery } from "@tanstack/react-query";
+import { Link } from "react-router";
+import Swal from "sweetalert2";
+
 
 export default function AllBloodRequest() {
   const axiosSecure=useAxiosSecure()
    const [page, setPage] = useState(1)
     const [totalPages, setTotalPages] = useState(1);
+   
+    
 
   const fetchReq=async(page)=>{
     const res=await axiosSecure(`/all-blood-req?page=${page}`);
@@ -14,11 +21,75 @@ export default function AllBloodRequest() {
     return res.data.result;
   }
 
-  const { data:allReq=[], isLoading, error } = useQuery({
+  const { data:allReq=[], isLoading, error,refetch } = useQuery({
     queryKey: ['Allreq',page],
     queryFn: ()=>fetchReq(page),
      keepPreviousData: true,
   })
+
+  const handleDelete = async (id) => {
+  const result = await Swal.fire({
+    title: "Are you sure?",
+    text: "Once deleted, this request cannot be recovered!",
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonColor: "#d33",
+    cancelButtonColor: "#3085d6",
+    confirmButtonText: "Yes, delete it!",
+    cancelButtonText: "Cancel"
+  });
+
+  if (result.isConfirmed) {
+    await axiosSecure.delete(`/delete-request/${id}`)
+      .then((res) => {
+        if (res.data.deletedCount > 0) {
+          Swal.fire({
+            position: "center",
+            icon: "success",
+            title: "Successfully deleted!",
+            showConfirmButton: false,
+            timer: 1500
+          });
+          refetch(); // Refresh data
+        }
+      })
+      .catch((error) => {
+        Swal.fire({
+          position: "center",
+          icon: "error",
+          title: "Failed to delete",
+          text: error.message,
+          showConfirmButton: true,
+        });
+      });
+  }
+};
+
+
+const handleStatusChange=async(newStatus, id)=>{
+  try {
+    const res = await axiosSecure.patch(`/update-req-status/${id}`, {
+      status: newStatus,
+    });
+
+    if (res.data.modifiedCount > 0) {
+      Swal.fire({
+        icon: "success",
+        title: "Status Updated!",
+        timer: 1500,
+        showConfirmButton: false,
+      });
+      refetch(); // Optional, if you're using React Query or similar
+    }
+  } catch (err) {
+    Swal.fire({
+      icon: "error",
+      title: "Update Failed",
+      text: err.message,
+    });
+  }
+
+}
 
   console.log("all req",allReq)
   return (
@@ -74,7 +145,64 @@ export default function AllBloodRequest() {
                 
                 <td><span className="badge badge-warning">{req.status}</span></td>
                 <td><span className="flex items-center gap-1"><FaCalendarAlt /> {req.donationDate}</span></td>
-                <td><FaEllipsisV /></td>
+               <td>
+  <div className="dropdown dropdown-end">
+    <label tabIndex={0} className="btn btn-ghost btn-xs">
+      <HiDotsVertical size={18} />
+    </label>
+    <ul
+      tabIndex={0}
+      className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52"
+    >
+      <li>
+        <Link to={`/donation-requests-details/${req._id}`}>
+          <button className="flex items-center gap-2">
+            <FaEye className="text-blue-500" />
+            View Details
+          </button>
+        </Link>
+      </li>
+
+      <li>
+        <Link to={`/dashboard/update-requests/${req._id}`}>
+          <button className="flex items-center gap-2">
+            <FaEdit className="text-green-500" />
+            Edit
+          </button>
+        </Link>
+      </li>
+
+      <li>
+        <button onClick={() => handleDelete(req._id)} className="flex items-center gap-2">
+          <FaTrash className="text-red-500" />
+          Delete
+        </button>
+      </li>
+
+      <li>
+        <details>
+          <summary className="flex items-center gap-2">
+            <FaEdit className="text-yellow-500" />
+            Update Status
+          </summary>
+          <div className="mt-2">
+            <select
+              className="select select-sm w-full"
+              defaultValue={req.status}
+               onChange={(e) => handleStatusChange(e.target.value, req._id)}
+             
+            >
+              <option value="pending">Pending</option>
+              <option value="inprogress">In Progress</option>
+              <option value="done">Done</option>
+              <option value="canceled">Canceled</option>
+            </select>
+          </div>
+        </details>
+      </li>
+    </ul>
+  </div>
+</td>
               </tr>))}
 
               

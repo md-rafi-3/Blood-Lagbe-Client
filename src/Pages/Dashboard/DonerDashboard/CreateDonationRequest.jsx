@@ -22,7 +22,7 @@ const CreateDonationRequest = () => {
     const [filteredDistricts, setFilteredDistricts] = useState([]);
     const [filteredUpazilas, setFilteredUpazilas] = useState([]);
     const [donationDate, setDonationDate] = useState(null);
-    const [status, setStatus] = useState("Active");
+    const [status, setStatus] = useState("active");
 
     // Blocked user check
          const fetchStatus=async()=>{

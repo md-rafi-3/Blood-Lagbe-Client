@@ -20,6 +20,7 @@ import Funding from "../Pages/Funding/Funding";
 import DonationRequestsDetails from "../Pages/DonationRequests/DonationRequestsDetails";
 import VolunteerRoute from "./VolunteerRoute";
 import VolunteerAllBloodRequests from "../Pages/Dashboard/VlolunteerDashboard/VolunteerPages/VolunteerAllBloodRequests";
+import UpdateRequests from "../Pages/UpdateRequests/UpdateRequests";
 
 
 
@@ -76,6 +77,7 @@ export const router = createBrowserRouter([
                     path:"all-users",
                     element:<AdminRoute><AllUsers></AllUsers></AdminRoute>
                 },
+                
                 {
                     path:"all-blood-donation-request",
                     element:<AdminRoute><AllBloodRequest></AllBloodRequest></AdminRoute>
@@ -96,6 +98,10 @@ export const router = createBrowserRouter([
                 {
                     path:"my-donation-requests",
                     element:<PriveteRoute><MyDonationRequest></MyDonationRequest></PriveteRoute>
+                },
+                {
+                    path:"update-requests/:id",
+                    element:<PriveteRoute><UpdateRequests></UpdateRequests></PriveteRoute>
                 },
                 {
                     path:"volunteer-all-blood-donation-request",
