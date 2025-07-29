@@ -14,7 +14,9 @@ const DonationRequestsTable = ({req,index,page}) => {
                   </div>
                 </td>
                 <td><span className="badge bg-[#d53131] text-white">{req.bloodGroup}</span></td>
-                <td>{req.hospital}</td>
+                <td>{req.hospital} <br />
+                 <span>{req.upazila}, {req.district}, {req.division}</span>
+                </td>
                 
                 <td><span className="badge badge-warning">{req.status}</span></td>
                 <td><span className="flex items-center gap-1"><FaCalendarAlt /> {req.donationDate}</span></td>

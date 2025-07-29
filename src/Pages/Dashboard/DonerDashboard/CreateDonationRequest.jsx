@@ -7,11 +7,15 @@ import divisions from "../../../assets/Data/divisions.json";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import useAxiosPublic from "../../../Hooks/axiosPublic";
+import Swal from "sweetalert2";
+import useAxiosSecure from "../../../Hooks/useAxiosSecure";
+import { useQuery } from "@tanstack/react-query";
 
 const CreateDonationRequest = () => {
     const { user } = useContext(AuthContext);
     const axiosPublic = useAxiosPublic();
     const navigate = useNavigate();
+    const axiosSecure=useAxiosSecure()
 
     const [selectedDivision, setSelectedDivision] = useState("");
     const [selectedDistrict, setSelectedDistrict] = useState("");
@@ -21,11 +25,17 @@ const CreateDonationRequest = () => {
     const [status, setStatus] = useState("Active");
 
     // Blocked user check
-    useEffect(() => {
-        if (user?.status === "Blocked") {
-            setStatus("Blocked");
-        }
-    }, [user]);
+         const fetchStatus=async()=>{
+            const res=await axiosSecure.get("/users-role");
+            if(res.data.status==="blocked"){
+                setStatus("blocked")
+            }
+         }
+
+         const { data, isLoading, error } = useQuery({
+    queryKey: ['status'],
+    queryFn: fetchStatus,
+  })
 
     // Filter districts based on selected division
     useEffect(() => {
@@ -79,11 +89,23 @@ const CreateDonationRequest = () => {
         try {
             const res = await axiosPublic.post("/donation-requests", newRequest);
             if (res.data.insertedId) {
-                alert("Donation request created successfully");
+               Swal.fire({
+  position: "center",
+  icon: "success",
+  title: "Donation request created successfully",
+  showConfirmButton: false,
+  timer: 1500
+});
                 navigate("/dashboard/my-donation-requests");
             }
         } catch (error) {
-            console.error("Error creating donation request:", error);
+           Swal.fire({
+  position: "center",
+  icon: "error",
+  title: error.message,
+  showConfirmButton: false,
+  timer: 1500
+});
         }
     };
 
@@ -256,7 +278,7 @@ const CreateDonationRequest = () => {
             <button
                 type="submit"
                 className="btn bg-[#d53131] hover:bg-[#b12b2b] text-white w-full"
-                disabled={status === "Blocked"}
+                disabled={status === "blocked"}
             >
                 Submit Request
             </button>

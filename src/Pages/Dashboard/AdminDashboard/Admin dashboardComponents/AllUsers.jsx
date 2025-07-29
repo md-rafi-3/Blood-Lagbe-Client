@@ -2,6 +2,7 @@ import { FaUsers, FaDollarSign, FaTint } from "react-icons/fa";
 import useAxiosSecure from "../../../../Hooks/useAxiosSecure";
 import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
+import Swal from "sweetalert2";
 
 const AllUsers = () => {
   const axios=useAxiosSecure()
@@ -23,7 +24,7 @@ const AllUsers = () => {
     name
   }
 
-  const { data:users=[], isLoading, error } = useQuery({
+  const { data:users=[], isLoading, error,refetch  } = useQuery({
     queryKey: ['users',querys],
     queryFn: ()=>fetchUsers(querys),
     keepPreviousData: true,
@@ -52,6 +53,66 @@ const AllUsers = () => {
     return "badge bg-gray-200 text-gray-800";
   };
 
+
+  const handleBlock = async (id) => {
+  try {
+    const res = await axios.patch(`/users/block/${id}`);
+    if (res.data.modifiedCount) {
+      Swal.fire("Blocked!", "User has been blocked.", "success");
+      refetch();
+    }
+  } catch (error) {
+    Swal.fire("Error!", error.message, "error");
+  }
+};
+
+const handleUnblock = async (id) => {
+  try {
+    const res = await axios.patch(`/users/unblock/${id}`);
+    if (res.data.modifiedCount) {
+      Swal.fire("Unblocked!", "User has been unblocked.", "success");
+      refetch();
+    }
+  } catch (error) {
+    Swal.fire("Error!", error.message, "error");
+  }
+};
+
+const handleMakeVolunteer = async (id) => {
+  try {
+    const res = await axios.patch(`/users/role/${id}`, { role: 'volunteer' });
+    if (res.data.modifiedCount) {
+      Swal.fire("Success!", "User is now a Volunteer.", "success");
+      refetch();
+    }
+  } catch (error) {
+    Swal.fire("Error!", error.message, "error");
+  }
+};
+
+const handleMakeAdmin = async (id) => {
+  try {
+    const res = await axios.patch(`/users/role/${id}`, { role: 'admin' });
+    if (res.data.modifiedCount) {
+      Swal.fire("Success!", "User is now an Admin.", "success");
+      refetch();
+    }
+  } catch (error) {
+    Swal.fire("Error!", error.message, "error");
+  }
+};
+
+const handleMakeDonor = async (id) => {
+  try {
+    const res = await axios.patch(`/users/role/${id}`, { role: 'donor' });
+    if (res.data.modifiedCount) {
+      Swal.fire("Success!", "User is now a Donor.", "success");
+      refetch();
+    }
+  } catch (error) {
+    Swal.fire("Error!", error.message, "error");
+  }
+};
   return (
     <div className="md:px-4 px-3 space-y-6">
      
@@ -110,12 +171,64 @@ const AllUsers = () => {
                     <span className="badge badge-outline badge-info">{user?.bloodGroup}</span>
                   </td>
                   <td>
-                    <span className={statusClass(user.status)}>{user?.status}</span>
+                    <span className={statusClass(user.status)}>{user?.status==="blocked"?"Blocked":"Active"}</span>
                   </td>
                  
-                  <td>
-                    <button className="btn btn-sm btn-ghost">•••</button>
-                  </td>
+                <td>
+  <div className="dropdown dropdown-end">
+    <button tabIndex={0} className="btn btn-sm btn-outline border-none">
+      ⋮
+    </button>
+    <ul
+      tabIndex={0}
+      className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-48 space-y-1"
+    >
+      {/* Block / Unblock */}
+      {user.status === 'active' ? (
+        <li>
+          <button className="text-red-500" onClick={() => handleBlock(user._id)}>
+            🔒 Block
+          </button>
+        </li>
+      ) : (
+        <li>
+          <button className="text-green-600" onClick={() => handleUnblock(user._id)}>
+            🔓 Unblock
+          </button>
+        </li>
+      )}
+
+      {/* Make Donor */}
+      {user.role !== 'donor' && (
+        <li>
+          <button className="text-rose-500" onClick={() => handleMakeDonor(user._id)}>
+            🩸 Make Donor
+          </button>
+        </li>
+      )}
+
+      {/* Make Volunteer */}
+      {user.role !== 'volunteer' && (
+        <li>
+          <button className="text-blue-500" onClick={() => handleMakeVolunteer(user._id)}>
+            🤝 Make Volunteer
+          </button>
+        </li>
+      )}
+
+      {/* Make Admin */}
+      {user.role !== 'admin' && (
+        <li>
+          <button className="text-purple-500" onClick={() => handleMakeAdmin(user._id)}>
+            🛡️ Make Admin
+          </button>
+        </li>
+      )}
+    </ul>
+  </div>
+</td>
+
+
                 </tr>
               ))}
             </tbody>

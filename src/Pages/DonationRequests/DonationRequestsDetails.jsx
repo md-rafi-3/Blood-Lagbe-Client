@@ -25,9 +25,14 @@ const DonationRequestsDetails = () => {
   })
 
   const handleDonate=(id)=>{
+       const donor={
+        donorName:user.displayName,
+        donorEmail:user.email
+       }
 
+       console.log(donor)
 
-    axiosSecure.patch(`/donate-status?id=${id}`).then(res=>{
+    axiosSecure.patch(`/donate-status?id=${id}`,{donor}).then(res=>{
         console.log(res.data)
           if(res.data.modifiedCount > 0){
       Swal.fire({
