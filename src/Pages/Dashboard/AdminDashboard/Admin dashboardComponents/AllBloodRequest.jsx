@@ -10,20 +10,27 @@ import Swal from "sweetalert2";
 
 export default function AllBloodRequest() {
   const axiosSecure=useAxiosSecure()
+  const [text,setText]=useState("")
+  const [status,setStatus]=useState("")
    const [page, setPage] = useState(1)
     const [totalPages, setTotalPages] = useState(1);
    
-    
+    const queries={
+      text,
+      status
+    }
 
-  const fetchReq=async(page)=>{
-    const res=await axiosSecure(`/all-blood-req?page=${page}`);
+    console.log(queries)
+
+  const fetchReq=async(page,queries)=>{
+    const res=await axiosSecure(`/all-blood-req?page=${page}`,{params:queries});
     setTotalPages(Math.ceil(res.data.totalCount/10))
     return res.data.result;
   }
 
   const { data:allReq=[], isLoading, error,refetch } = useQuery({
-    queryKey: ['Allreq',page],
-    queryFn: ()=>fetchReq(page),
+    queryKey: ['Allreq',page,queries],
+    queryFn: ()=>fetchReq(page,queries),
      keepPreviousData: true,
   })
 
@@ -106,13 +113,15 @@ const handleStatusChange=async(newStatus, id)=>{
         <div className="flex flex-col md:flex-row md:items-center gap-4 mb-6">
           <div className="relative w-full md:w-1/2">
             <FaSearch className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
-            <input type="text" placeholder="Search requests..." className="input input-bordered w-full pl-10" />
+            <input type="text" placeholder="Search requests..." defaultValue={text} onChange={(e)=>setText(e.target.value)} className="input input-bordered w-full pl-10" />
           </div>
-          <select className="select select-bordered md:w-40 w-full">
-            <option>All Status</option>
-            <option>Pending</option>
-            <option>Approved</option>
-            <option>Completed</option>
+          <select className="select select-bordered md:w-40 w-full" defaultValue={status} onChange={(e)=>setStatus(e.target.value)}>
+        
+         <option value="">All</option>
+         <option value="pending">Pending</option>
+              <option value="inprogress">In Progress</option>
+              <option value="done">Done</option>
+              <option value="canceled">Canceled</option>
           </select>
         </div>
 

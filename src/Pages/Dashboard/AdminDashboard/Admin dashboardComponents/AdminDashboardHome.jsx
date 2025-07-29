@@ -2,6 +2,7 @@ import { FaUsers, FaDollarSign, FaTint } from "react-icons/fa";
 import { format } from 'date-fns';
 import useAxiosSecure from "../../../../Hooks/useAxiosSecure";
 import { useQuery } from "@tanstack/react-query";
+import { Link } from "react-router";
 
 const AdminDashboardHome = () => {
   
@@ -106,12 +107,12 @@ const AdminDashboardHome = () => {
         <div className="card bg-white shadow-md p-6 border border-gray-200 rounded-2xl">
           <h4 className="text-lg font-semibold mb-4">Quick Actions</h4>
           <div className="flex flex-col  gap-3">
-            <button className="btn bg-[#d53131] hover:bg-[#c02626] text-white w-full flex items-center justify-center py-2 rounded-lg">
+           <Link to="/dashboard/all-users"> <button className="btn bg-[#d53131] hover:bg-[#c02626] text-white w-full flex items-center justify-center py-2 rounded-lg">
               <FaUsers className="mr-2" /> View All Users
-            </button>
-            <button className="btn bg-[#d53131] hover:bg-[#c02626] text-white w-full flex items-center justify-center py-2 rounded-lg">
+            </button></Link>
+           <Link  to="/dashboard/all-blood-donation-request"> <button className="btn bg-[#d53131] hover:bg-[#c02626] text-white w-full flex items-center justify-center py-2 rounded-lg">
               <FaTint className="mr-2" /> Blood Requests
-            </button>
+            </button></Link>
           </div>
         </div>
       </div>

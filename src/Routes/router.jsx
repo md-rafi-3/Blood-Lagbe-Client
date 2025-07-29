@@ -21,6 +21,7 @@ import DonationRequestsDetails from "../Pages/DonationRequests/DonationRequestsD
 import VolunteerRoute from "./VolunteerRoute";
 import VolunteerAllBloodRequests from "../Pages/Dashboard/VlolunteerDashboard/VolunteerPages/VolunteerAllBloodRequests";
 import UpdateRequests from "../Pages/UpdateRequests/UpdateRequests";
+import EditBlog from "../Pages/Dashboard/AdminDashboard/Admin dashboardComponents/EditBlog";
 
 
 
@@ -90,6 +91,10 @@ export const router = createBrowserRouter([
                 {
                     path:"add-blog",
                     element:<AdminRoute><Addblog></Addblog></AdminRoute>
+                },
+                {
+                    path:"edit-blog/:id",
+                    element:<AdminRoute><EditBlog></EditBlog></AdminRoute>
                 },
                 {
                     path:"create-donation-request",
