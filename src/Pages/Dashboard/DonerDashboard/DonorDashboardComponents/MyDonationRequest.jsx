@@ -6,6 +6,7 @@ import { HiDotsVertical } from "react-icons/hi";
 import { FaEye, FaEdit, FaTrash, FaSearch, FaCalendarAlt } from "react-icons/fa";
 import Swal from 'sweetalert2';
 import { TiDelete } from 'react-icons/ti';
+import Loading from '../../../Loading/Loading';
 
 const MyDonationRequest = () => {
     const axiosSecure=useAxiosSecure()
@@ -21,7 +22,7 @@ const MyDonationRequest = () => {
         return res.data.result;
     }
 
-    const { data:requests=[], isLoading, error,refetch } = useQuery({
+    const { data:requests=[], isLoading,refetch } = useQuery({
     queryKey: ['requests',page],
     queryFn: ()=>fetchRequests(page),
      keepPreviousData: true
@@ -58,7 +59,9 @@ const MyDonationRequest = () => {
     }
   };
 
-
+    if(isLoading){
+      return <Loading></Loading>
+    }
 //   console.log("my requests",requests)
     return (
         <div className="p-6 space-y-6">

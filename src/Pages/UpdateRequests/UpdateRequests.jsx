@@ -8,6 +8,7 @@ import { useParams } from "react-router";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import useAxiosSecure from "../../Hooks/useAxiosSecure";
+import Loading from "../Loading/Loading";
 
 const UpdateRequest = () => {
   const axiosSecure = useAxiosSecure();
@@ -89,7 +90,9 @@ const UpdateRequest = () => {
     }
   };
 
-  if (isLoading) return <p className="text-center">Loading...</p>;
+  if (isLoading){
+    return <Loading></Loading>
+  };
 
   return (
     <div className="max-w-4xl mx-auto bg-white shadow p-6 rounded-lg">

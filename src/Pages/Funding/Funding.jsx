@@ -5,6 +5,8 @@ import CheckoutForm from './CheckoutForm';
 import useAxiosSecure from '../../Hooks/useAxiosSecure';
 import { useQuery } from '@tanstack/react-query';
 import FundingTable from './FundingTable';
+import Loading from '../Loading/Loading';
+import NoData from '../../Components/NoData';
 
 
 const stripePromise = loadStripe("pk_test_51RpWZ4ClCGqGKxwQVpw8H9QsQFDNGVbQL2e16MbOXDZRP79FIlROk7jbTeVSPEpZMCeYjSEtCgV0enDS8tJLoFqc00B3ABsvov");
@@ -20,11 +22,15 @@ const Funding = () => {
         return res.data.result
     }
 
-    const { data:fundingData=[], isLoading, error } = useQuery({
+    const { data:fundingData=[], isLoading } = useQuery({
     queryKey: ['funding',page],
     queryFn:()=>fetchFunding(page),
      keepPreviousData: true
   })
+
+  if(isLoading){
+    return <Loading></Loading>
+  }
 
   // console.log(fundingData)
     return (
@@ -48,7 +54,7 @@ const Funding = () => {
     </thead>
     <tbody>
       {/* row 1 */}
-      {fundingData.map((fund,index)=><FundingTable fund={fund} page={page} key={index} index={index}></FundingTable>)}
+      {fundingData.length===0?(<tr colspan="4"><NoData></NoData></tr>):(fundingData.map((fund,index)=><FundingTable fund={fund} page={page} key={index} index={index}></FundingTable>))}
       
     </tbody>
   </table>

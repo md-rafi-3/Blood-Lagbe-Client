@@ -5,6 +5,8 @@ import useAxiosSecure from "../../../../Hooks/useAxiosSecure";
 import { useQuery } from "@tanstack/react-query";
 import { Link } from "react-router";
 import Swal from "sweetalert2";
+import Loading from "../../../Loading/Loading";
+import NoData from "../../../../Components/NoData";
 
 export default function VolunteerAllBloodRequest() {
   const axiosSecure = useAxiosSecure();
@@ -21,7 +23,7 @@ export default function VolunteerAllBloodRequest() {
     return res.data.result;
   };
 
-  const { data: allReq = [], isLoading, error, refetch } = useQuery({
+  const { data: allReq = [], isLoading,  refetch } = useQuery({
     queryKey: ["Allreq", page, queries],
     queryFn: () => fetchReq(page, queries),
     keepPreviousData: true,
@@ -48,6 +50,10 @@ export default function VolunteerAllBloodRequest() {
       });
     }
   };
+
+  if(isLoading){
+    return <Loading></Loading>
+  }
 
   return (
     <div className="p-6 space-y-6">
@@ -102,7 +108,7 @@ export default function VolunteerAllBloodRequest() {
               </tr>
             </thead>
             <tbody>
-              {allReq.map((req, index) => (
+              {allReq.length===0?(<tr colspan='7'><NoData></NoData></tr>):(allReq.map((req, index) => (
                 <tr key={req._id}>
                   <td>{index + 1 + (page - 1) * 10}</td>
                   <td>
@@ -153,7 +159,7 @@ export default function VolunteerAllBloodRequest() {
                     </div>
                   </td>
                 </tr>
-              ))}
+              )))}
             </tbody>
           </table>
         </div>

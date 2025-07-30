@@ -5,6 +5,8 @@ import DonationRequestCard from '../../Components/DonationRequestCard';
 import { FaThLarge } from 'react-icons/fa';
 import { FaListUl } from 'react-icons/fa6';
 import DonationRequestsTable from './DonationRequestsTable';
+import Loading from '../Loading/Loading';
+import NoData from '../../Components/NoData';
 
 const DonationRequests = () => {
      const [view, setView] = useState('grid');
@@ -18,12 +20,15 @@ const DonationRequests = () => {
         return res.data.result;
     }
 
-    const { data: requestes=[], isLoading, error } = useQuery({
+    const { data: requestes=[], isLoading } = useQuery({
     queryKey: ['allRequests',page],
     queryFn: ()=>fetchRequests(page),
      keepPreviousData: true,
   })
   console.log(requestes)
+  if(isLoading){
+    return <Loading></Loading>
+  }
     return (
         <div className='max-w-7xl mx-auto px-3'>
 
@@ -44,6 +49,8 @@ const DonationRequests = () => {
                     </div>
 
              </div>
+
+             <div className='flex justify-center items-center'>{requestes.length===0 &&<NoData></NoData>}</div>
 
             <div className={`grid grid-cols-1 md:grid-cols-3 gap-5 ${view==="list" ?"hidden":"block"}`}>
                 {requestes.map(request=><DonationRequestCard request={request}></DonationRequestCard>)}
@@ -68,7 +75,7 @@ const DonationRequests = () => {
                             </thead>
                             <tbody>
                               
-                              {requestes.map((req,index)=><DonationRequestsTable req={req} page={page} key={index} index={index}></DonationRequestsTable>)}
+                              {requestes.length===0?(<tr colspan="7"><NoData></NoData></tr>):(requestes.map((req,index)=><DonationRequestsTable req={req} page={page} key={index} index={index}></DonationRequestsTable>))}
                 
                               
                             </tbody>

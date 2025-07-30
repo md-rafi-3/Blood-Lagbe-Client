@@ -6,6 +6,7 @@ import { AuthContext } from "../../../../Contexts/AuthContext";
 import useAxiosSecure from "../../../../Hooks/useAxiosSecure";
 import { useQuery } from "@tanstack/react-query";
 import DonationRequestsTable from "../../../DonationRequests/DonationRequestsTable";
+import Loading from "../../../Loading/Loading";
 
 
 export default function DonorDashboardHome() {
@@ -19,7 +20,7 @@ export default function DonorDashboardHome() {
     return res.data;
   }
 
-  const { data: recentDonations = [], isLoading, error } = useQuery({
+  const { data: recentDonations = [], isLoading } = useQuery({
     queryKey: ['recRequests'],
     queryFn: fetchRecReq,
   })
@@ -31,6 +32,10 @@ export default function DonorDashboardHome() {
   // };
 
   console.log(recentDonations)
+
+  if(isLoading){
+    return <Loading></Loading>
+  }
 
   return (
     <div className="p-6 space-y-6">

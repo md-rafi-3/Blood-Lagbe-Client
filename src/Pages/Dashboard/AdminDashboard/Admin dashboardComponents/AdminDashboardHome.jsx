@@ -3,6 +3,7 @@ import { format } from 'date-fns';
 import useAxiosSecure from "../../../../Hooks/useAxiosSecure";
 import { useQuery } from "@tanstack/react-query";
 import { Link } from "react-router";
+import Loading from "../../../Loading/Loading";
 
 const AdminDashboardHome = () => {
   
@@ -16,7 +17,7 @@ const AdminDashboardHome = () => {
         return res.data
       }
 
-      const { data:total=[], isLoading, error } = useQuery({
+      const { data:total=[], isLoading } = useQuery({
     queryKey: ['total'],
     queryFn: fetchTotal,
   })
@@ -29,7 +30,11 @@ const AdminDashboardHome = () => {
 
 
 
-
+ if (isLoading) {
+     return (
+      <Loading></Loading>
+     );
+   }
   
   
 

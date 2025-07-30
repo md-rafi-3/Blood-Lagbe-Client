@@ -32,15 +32,13 @@ const Blog = () => {
     );
   }
 
-  if (blogs.length === 0) {
-    return (
-     <NoData></NoData>
-    );
-  }
+  
 
   return (
     <div className="max-w-7xl mx-auto px-3 py-5">
       <h1 className="text-4xl font-bold mb-8 text-center">Our Blogs</h1>
+
+      <div className='flex justify-center items-center'>{blogs.length===0 && <NoData></NoData>}</div>
 
       <div className="grid gap-5 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
         {blogs.map((blog) => (

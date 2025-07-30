@@ -5,6 +5,7 @@ import upazilas from "../../assets/Data/upazilas.json";
 import useAxiosPublic from "../../Hooks/axiosPublic";
 import { useQuery } from "@tanstack/react-query";
 import DonorCard from "./DonorCard";
+import Loading from "../Loading/Loading";
 
 export default function SearchPage() {
   const axiosPublic = useAxiosPublic();
@@ -153,7 +154,7 @@ export default function SearchPage() {
       </div>
 
       {/* Result Section */}
-      {isLoading && <p>Loading donors...</p>}
+      {isLoading && <Loading></Loading>}
 
       {!isLoading && donors.length > 0 && (
         <div className="bg-white p-6 rounded-2xl shadow-md">

@@ -7,6 +7,7 @@ import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../../../../Hooks/useAxiosSecure";
 import { useEffect, useState } from "react";
 import useRole from "../../../../Hooks/useRole";
+import Loading from "../../../Loading/Loading";
 
 const EditBlog = () => {
   const { id } = useParams();
@@ -22,7 +23,7 @@ const EditBlog = () => {
     return res.data;
   };
 
-  const { data, isLoading, error } = useQuery({
+  const { data, isLoading } = useQuery({
     queryKey: ["blog", id],
     queryFn: fetchBlog,
   });
@@ -71,7 +72,7 @@ const EditBlog = () => {
   }
 
   if (isLoading || !blog) {
-    return <div className="text-center py-10">Loading...</div>;
+    return <Loading></Loading>;
   }
 
   return (

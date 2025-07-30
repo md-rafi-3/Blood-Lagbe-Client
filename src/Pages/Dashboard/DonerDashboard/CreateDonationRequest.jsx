@@ -10,6 +10,7 @@ import useAxiosPublic from "../../../Hooks/axiosPublic";
 import Swal from "sweetalert2";
 import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 import { useQuery } from "@tanstack/react-query";
+import Loading from "../../Loading/Loading";
 
 const CreateDonationRequest = () => {
     const { user } = useContext(AuthContext);
@@ -32,7 +33,7 @@ const CreateDonationRequest = () => {
             }
          }
 
-         const { data, isLoading, error } = useQuery({
+         const {  isLoading} = useQuery({
     queryKey: ['status'],
     queryFn: fetchStatus,
   })
@@ -108,6 +109,10 @@ const CreateDonationRequest = () => {
 });
         }
     };
+
+    if(isLoading){
+        return <Loading></Loading>
+    }
 
     return (
         <form

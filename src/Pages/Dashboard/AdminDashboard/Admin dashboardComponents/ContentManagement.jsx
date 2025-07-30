@@ -5,6 +5,8 @@ import useAxiosSecure from "../../../../Hooks/useAxiosSecure";
 import { useQuery } from "@tanstack/react-query";
 import BlogCard from "../../../../Components/BlogCard";
 import Swal from "sweetalert2";
+import Loading from "../../../Loading/Loading";
+import NoData from "../../../../Components/NoData";
 
 
 
@@ -23,7 +25,7 @@ export default function ContentManagement() {
     return res.data;
   }
 
-  const { data:blogs=[], isLoading, error ,refetch} = useQuery({
+  const { data:blogs=[], isLoading, refetch} = useQuery({
     queryKey: ['blogs',scarchQuery],
     queryFn: ()=>fetchBlogs(scarchQuery),
   })
@@ -83,6 +85,11 @@ export default function ContentManagement() {
 };
 
 
+if(isLoading){
+  return <Loading></Loading>
+}
+
+
   
 
   return (
@@ -121,8 +128,10 @@ export default function ContentManagement() {
           </select>
         </div>
 
+        <div className="flex justify-center items-center">{blogs.length===0 && <NoData></NoData>} </div>
+
         <div className="grid md:grid-cols-3 gap-4">
-            {blogs.map(blog=><BlogCard blog={blog} key={blog._id} handleDelete={handleDelete} handleStatusToggle={handleStatusToggle}  key={blog.id}></BlogCard>)}
+            {blogs.map(blog=><BlogCard blog={blog} key={blog._id} handleDelete={handleDelete} handleStatusToggle={handleStatusToggle}  ></BlogCard>)}
           
            {/* card container */}
         </div>

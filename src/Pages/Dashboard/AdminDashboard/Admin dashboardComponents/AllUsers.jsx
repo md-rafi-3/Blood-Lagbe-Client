@@ -3,6 +3,8 @@ import useAxiosSecure from "../../../../Hooks/useAxiosSecure";
 import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
 import Swal from "sweetalert2";
+import Loading from "../../../Loading/Loading";
+import NoData from "../../../../Components/NoData";
 
 const AllUsers = () => {
   const axios=useAxiosSecure()
@@ -24,7 +26,7 @@ const AllUsers = () => {
     name
   }
 
-  const { data:users=[], isLoading, error,refetch  } = useQuery({
+  const { data:users=[], isLoading, refetch  } = useQuery({
     queryKey: ['users',querys],
     queryFn: ()=>fetchUsers(querys),
     keepPreviousData: true,
@@ -113,6 +115,10 @@ const handleMakeDonor = async (id) => {
     Swal.fire("Error!", error.message, "error");
   }
 };
+
+if(isLoading){
+  return <Loading></Loading>
+}
   return (
     <div className="md:px-4 px-3 space-y-6">
      
@@ -150,7 +156,7 @@ const handleMakeDonor = async (id) => {
               </tr>
             </thead>
             <tbody>
-              {users.map((user, index) => (
+              {users.length===0?(<tr colspan='7'><NoData></NoData></tr>):(users.map((user, index) => (
                 <tr key={index} className="hover">
                   <td>{(index+1)+((page-1)*5)}</td>
                   <td>
@@ -230,7 +236,7 @@ const handleMakeDonor = async (id) => {
 
 
                 </tr>
-              ))}
+              )))}
             </tbody>
           </table>
         </div>

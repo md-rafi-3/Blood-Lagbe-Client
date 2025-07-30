@@ -5,6 +5,8 @@ import useAxiosSecure from "../../../../Hooks/useAxiosSecure";
 import { useQuery } from "@tanstack/react-query";
 import BlogCard from "../../../../Components/BlogCard";
 import Swal from "sweetalert2";
+import Loading from "../../../Loading/Loading";
+import NoData from "../../../../Components/NoData";
 
 
 
@@ -26,7 +28,7 @@ export default function VolunteerContentManage() {
     return res.data;
   }
 
-  const { data:blogs=[], isLoading, error ,refetch} = useQuery({
+  const { data:blogs=[], isLoading} = useQuery({
     queryKey: ['blogs',searchQuery],
     queryFn: ()=>fetchBlogs(searchQuery),
   })
@@ -34,7 +36,9 @@ export default function VolunteerContentManage() {
 
   
 
-
+if(isLoading){
+  return <Loading></Loading>
+}
  
 
   
@@ -74,6 +78,7 @@ export default function VolunteerContentManage() {
             <option value="published">Published</option>
           </select>
         </div>
+        <div className="flex justify-center items-center">{blogs.length===0 && <NoData></NoData>}</div>
 
         <div className="grid md:grid-cols-3 gap-4">
             {blogs.map(blog=><BlogCard blog={blog} key={blog._id} ></BlogCard>)}
