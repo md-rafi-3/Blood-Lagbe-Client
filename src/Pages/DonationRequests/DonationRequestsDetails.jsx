@@ -32,7 +32,7 @@ const DonationRequestsDetails = () => {
 
       //  console.log(donor)
 
-    axiosSecure.patch(`/donate-status?id=${id}`,{donor}).then(res=>{
+    axiosSecure.patch(`/donate-status?id=${id}`,donor).then(res=>{
         // console.log(res.data)
           if(res.data.modifiedCount > 0){
       Swal.fire({
@@ -138,7 +138,7 @@ setIsOpen(false)
                 >
                   Cancel
                 </button>
-                <button
+                <button disabled={user.email===details.requesterEmail}
                   className="btn bg-green-500 hover:bg-green-600 text-white"
                   onClick={()=>handleDonate(details._id)}
                 >
