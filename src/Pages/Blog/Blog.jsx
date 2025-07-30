@@ -2,6 +2,8 @@ import React from 'react';
 import useAxiosPublic from '../../Hooks/axiosPublic';
 import { useQuery } from '@tanstack/react-query';
 import PublicBlogCard from '../../Components/DashboardNavbar/PublicBlogCard';
+import Loading from '../Loading/Loading';
+import NoData from '../../Components/NoData';
 
 const Blog = () => {
   const axiosPublic = useAxiosPublic();
@@ -18,9 +20,7 @@ const Blog = () => {
 
   if (isLoading) {
     return (
-      <div className="flex justify-center items-center min-h-screen">
-        <div className="text-gray-500 text-lg">Loading blogs...</div>
-      </div>
+     <Loading></Loading>
     );
   }
 
@@ -34,9 +34,7 @@ const Blog = () => {
 
   if (blogs.length === 0) {
     return (
-      <div className="flex justify-center items-center min-h-screen ">
-        <div className="text-gray-600 text-lg">No blogs available right now.</div>
-      </div>
+     <NoData></NoData>
     );
   }
 

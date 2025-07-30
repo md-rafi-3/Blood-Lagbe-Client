@@ -25,6 +25,7 @@ import EditBlog from "../Pages/Dashboard/AdminDashboard/Admin dashboardComponent
 import BlogDetails from "../Pages/Blog/BlogDetails";
 import Profile from "../Pages/Profile/Profile";
 import VolunteerContentManage from "../Pages/Dashboard/VlolunteerDashboard/VolunteerPages/VolunteerContentManage";
+import Error from "../Pages/Error/Error";
 
 
 
@@ -32,6 +33,7 @@ export const router = createBrowserRouter([
   {
     path: "/",
     element: <MainLayout></MainLayout>,
+    errorElement:<Error></Error>,
     children:[
         {
             index:true,
@@ -76,6 +78,7 @@ export const router = createBrowserRouter([
   {
             path:"/dashboard",
             element:<PriveteRoute><DashbordLayout></DashbordLayout></PriveteRoute>,
+            errorElement:<Error></Error>,
             children:[
                 {
                     index:true,

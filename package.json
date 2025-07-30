@@ -19,6 +19,7 @@
     "date-fns": "^4.1.0",
     "firebase": "^12.0.0",
     "jodit-react": "^5.2.19",
+    "lottie-react": "^2.4.1",
     "react": "^19.1.0",
     "react-datepicker": "^8.4.0",
     "react-dom": "^19.1.0",
