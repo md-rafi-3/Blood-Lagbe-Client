@@ -2,6 +2,7 @@ import React, {  useContext } from 'react';
 import { AuthContext } from '../../../Contexts/AuthContext';
 import { NavLink } from 'react-router';
 import { FaDroplet } from 'react-icons/fa6';
+import { FaFacebookF, FaTwitter, FaInstagram, FaLinkedinIn, FaHandHoldingHeart, FaRegEdit, FaYoutube, FaLinkedin, FaFacebook } from 'react-icons/fa';
 
 const Footer = () => {
   const {user}=useContext(AuthContext)
@@ -38,12 +39,34 @@ const Footer = () => {
     </NavLink>
   </li>
 </>
+
+
+
+    const socialLinks = (
+    <>
+      <a href="https://www.facebook.com" target='#' className="text-gray-600 hover:text-blue-500">
+              <FaFacebookF />
+            </a>
+            <a href="https://www.x.com" target='#' className="text-gray-600 hover:text-sky-400">
+              <FaTwitter />
+            </a>
+            <a href="https://www.instagram.com"  target="#" className="text-gray-600 hover:text-pink-500">
+              <FaInstagram />
+            </a>
+            <a href="https://www.linkedin.com" target='#' className="text-gray-600 hover:text-blue-700">
+              <FaLinkedinIn />
+            </a>
+    </>
+  );
     return (
         <footer className="footer sm:footer-horizontal bg-base-200 text-base-content p-10">
   <aside>
    <a className=" font-bold text-xl  flex items-center "><span className='text-primary '><FaDroplet size={23} className='text-[#d53131]' />
    </span>Blood<span className='text-[#d53131]'>Lagbe?</span></a>
    <p>"Your Trusted Platform for Emergency Blood Requests"</p>
+   <div className='flex gap-4 mt-3'>
+    {socialLinks}
+   </div>
   </aside>
  <ul>
   {links}
