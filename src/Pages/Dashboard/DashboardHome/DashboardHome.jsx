@@ -4,6 +4,7 @@ import { Navigate } from 'react-router';
 import AdminDashboard from '../AdminDashboard/AdminDashboard/AdminDashboard';
 import DonorDashboardHome from '../DonerDashboard/DonorDashboardComponents/DonorDashboardHome';
 import VolunteerDashboardHome from '../VlolunteerDashboard/VolunteerPages/VolunteerDashboardHome';
+import Loading from '../../Loading/Loading';
 
 const DashboardHome = () => {
   const {role,loading}=useRole()
@@ -11,7 +12,7 @@ const DashboardHome = () => {
   
   
   if (loading) {
-    return <h1>Loading</h1>;
+    return <Loading></Loading>
   }
 
   if (role === "donor") {
