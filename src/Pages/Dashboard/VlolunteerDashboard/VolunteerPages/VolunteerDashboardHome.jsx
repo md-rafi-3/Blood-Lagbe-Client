@@ -5,6 +5,7 @@ import { useQuery } from "@tanstack/react-query";
 import { Link } from "react-router";
 import { useContext } from "react";
 import { AuthContext } from "../../../../Contexts/AuthContext";
+import Loading from "../../../Loading/Loading";
 
 const VolunteerDashboardHome = () => {
   const {user}=useContext(AuthContext)
@@ -19,19 +20,21 @@ const VolunteerDashboardHome = () => {
         return res.data
       }
 
-      const { data:total=[], isLoading, error } = useQuery({
+      const { data:total=[], isLoading } = useQuery({
     queryKey: ['total'],
     queryFn: fetchTotal,
   })
 
   const activities = total?.activity || [];
 
-  console.log(activities)
+  // console.log(activities)
 
 
 
 
-
+if(isLoading){
+  return <Loading></Loading>
+}
 
   
   

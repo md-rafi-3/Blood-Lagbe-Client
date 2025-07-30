@@ -16,7 +16,7 @@ export default function VolunteerContentManage() {
   const axiosSecure=useAxiosSecure()
 
 
-  console.log(statusFilter,searchText)
+  // console.log(statusFilter,searchText)
 
   const searchQuery={
     statusFilter,
