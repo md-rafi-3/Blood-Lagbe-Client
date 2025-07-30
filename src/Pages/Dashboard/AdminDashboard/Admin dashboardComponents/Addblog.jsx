@@ -16,7 +16,7 @@ const AddBlog = () => {
   const [tags, setTags] = useState("");
   const axiosPublic=useAxiosPublic()
   const {role}=useRole()
-  console.log(role)
+  // console.log(role)
   const navigate=useNavigate()
 
   const IMAGE_BB_API_KEY = "YOUR_IMGBB_API_KEY"; 
@@ -51,7 +51,7 @@ const AddBlog = () => {
       };
 
 
-      console.log(blogData)
+      // console.log(blogData)
 
       // 3. Send to your backend API
     

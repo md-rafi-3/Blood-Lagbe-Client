@@ -7,7 +7,7 @@ import VolunteerDashboardHome from '../VlolunteerDashboard/VolunteerPages/Volunt
 
 const DashboardHome = () => {
   const {role,loading}=useRole()
-  console.log(role)
+  // console.log(role)
   
   
   if (loading) {

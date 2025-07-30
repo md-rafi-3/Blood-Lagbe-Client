@@ -26,7 +26,7 @@ const Funding = () => {
      keepPreviousData: true
   })
 
-  console.log(fundingData)
+  // console.log(fundingData)
     return (
         <div className="max-w-md mx-auto mt-10 px-3">
             <Elements stripe={stripePromise}>

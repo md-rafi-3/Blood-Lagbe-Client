@@ -127,13 +127,13 @@ const Profile = () => {
       };
 
     
-      console.log(updatePayload)
+    //   console.log(updatePayload)
        const updatedData={
             displayName:updatePayload.name,
             photoURL: updatePayload.avatar
 
         }
-        console.log("updated data",updatedData)
+        // console.log("updated data",updatedData)
 
         updateUser(updatedData)
 

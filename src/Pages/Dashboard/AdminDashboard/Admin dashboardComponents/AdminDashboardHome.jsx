@@ -23,7 +23,7 @@ const AdminDashboardHome = () => {
 
   const activities = total?.activity || [];
 
-  console.log(activities)
+  // console.log(activities)
 
 
 

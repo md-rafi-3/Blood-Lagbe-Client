@@ -106,7 +106,7 @@ const SignUp = () => {
 
     // console.log("✅ Submitted Data", finalUserData);
   
-    console.log("login data",finalUserData.email,finalUserData.password)
+    // console.log("login data",finalUserData.email,finalUserData.password)
     // Backend submit placeholder
     // await axios.post("/add-user", finalUserData)
     createUser(finalUserData.email,finalUserData.password).then((result) => {
@@ -115,13 +115,13 @@ const SignUp = () => {
       displayName:finalUserData.name,
       photoURL:finalUserData.avatar
      }
-      console.log(result.user)
+      // console.log(result.user)
       if(result.user){
          updateUser(userinfo).then(()=>{
              const { password, confirmPassword, ...userData } = finalUserData;
-             console.log("database data",userData)
+            //  console.log("database data",userData)
           axiosPublic.post("/add-user",userData).then((res) => {
-            console.log(res.data)
+            // console.log(res.data)
             if(res.data.insertedId){
               Swal.fire("Success", "Account created successfully!", "success")
               form.reset();
@@ -133,15 +133,33 @@ const SignUp = () => {
         navigate(`${ navLocation.state ?  navLocation.state : "/"}`)
       }, 1300)
           }).catch((error) => {
-            console.log(error.message)
+           Swal.fire({
+  position: "center",
+  icon: "error",
+  title: error.message,
+  showConfirmButton: false,
+  timer: 1500
+});
           })
 
          }).catch((error) => {
-          console.log(error.message)
+         Swal.fire({
+  position: "center",
+  icon: "error",
+  title: error.message,
+  showConfirmButton: false,
+  timer: 1500
+});
          })
       }
     }).catch((error) => {
-      console.log(error.message)
+      Swal.fire({
+  position: "center",
+  icon: "error",
+  title: error.message,
+  showConfirmButton: false,
+  timer: 1500
+});
     })
 
    

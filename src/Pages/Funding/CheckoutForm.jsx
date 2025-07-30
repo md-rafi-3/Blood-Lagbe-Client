@@ -58,7 +58,7 @@ export default function CheckoutForm() {
     email: user.email,
     date: new Date(),
   }).then(res=>{
-   console.log(res.data)
+  //  console.log(res.data)
    if(res.data.insertedId){
 
 document.getElementById("donation_modal").close();
@@ -76,7 +76,7 @@ document.getElementById("donation_modal").close();
       }
     } catch (error) {
       setError(error.message);
-      console.log(error)
+      // console.log(error)
     }
 
     setProcessing(false);

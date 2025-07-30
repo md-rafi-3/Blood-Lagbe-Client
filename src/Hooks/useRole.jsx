@@ -13,7 +13,7 @@ export default function useRole() {
 
     axiosSecure.get(`/users-role`)
       .then((res) => {
-        console.log("✅ Role response:", res.data);
+        // console.log("✅ Role response:", res.data);
         setRole(res.data.role || ""); 
         setLoading(false);
       })

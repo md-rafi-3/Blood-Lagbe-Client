@@ -58,7 +58,7 @@ export default function ContentManagement() {
 
  const handleStatusToggle = async (id, newStatus) => {
 
-  console.log(id,newStatus)
+  // console.log(id,newStatus)
   try {
     const res = await axiosSecure.patch(`/blogs/status/${id}`, {
       status: newStatus,

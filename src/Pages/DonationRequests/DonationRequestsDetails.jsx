@@ -12,7 +12,7 @@ const DonationRequestsDetails = () => {
     const {user}=useContext(AuthContext)
     const axiosSecure=useAxiosSecure()
     const {id}=useParams()
-    console.log(id)
+    // console.log(id)
     const fethDetails=async(id)=>{
         const res=await axiosSecure.get(`/requests-details/${id}`);
         return res.data
@@ -30,10 +30,10 @@ const DonationRequestsDetails = () => {
         donorEmail:user.email
        }
 
-       console.log(donor)
+      //  console.log(donor)
 
     axiosSecure.patch(`/donate-status?id=${id}`,{donor}).then(res=>{
-        console.log(res.data)
+        // console.log(res.data)
           if(res.data.modifiedCount > 0){
       Swal.fire({
         title: ' Donation Confirmed!',
@@ -44,7 +44,7 @@ const DonationRequestsDetails = () => {
       });
     }
     }).catch((error) => {
-        console.log(error)
+        // console.log(error)
         Swal.fire({
   position: "center",
   icon: "error",
@@ -61,7 +61,7 @@ setIsOpen(false)
   if(isLoading){
     return <Loading></Loading>
   }
-  console.log(details )
+  // console.log(details )
     return (
         <div className='max-w-7xl mx-auto py-10'>
             <div className="max-w-3xl  mx-auto bg-white shadow-md p-6 rounded-xl space-y-6" style={{
