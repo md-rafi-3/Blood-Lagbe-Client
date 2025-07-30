@@ -74,9 +74,9 @@ const BlogDetails = () => {
 
       {/* Tags */}
       <div className="mt-8 flex flex-wrap gap-3">
-        {blog.tags?.map((tag, idx) => (
+        {blog.tags?.map((tag, index) => (
           <span
-            key={idx}
+            key={index}
             className="bg-blue-100 text-blue-700 px-3 py-1 rounded-full text-sm"
           >
             #{tag}

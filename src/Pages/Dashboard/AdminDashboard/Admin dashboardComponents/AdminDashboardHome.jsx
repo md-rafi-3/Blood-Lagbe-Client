@@ -96,7 +96,7 @@ const AdminDashboardHome = () => {
           <div className="space-y-4">
             <div className="p-4  rounded-lg bg-gray-50">
              
-             { activities.map(activity=> <div className="p-4  rounded-lg bg-gray-50">
+             { activities.map(activity=> <div key={activity._id} className="p-4  rounded-lg bg-gray-50">
               <p className="text-sm font-semibold text-red-500">
                 Blood request submitted by {activity.requesterName}
               </p>

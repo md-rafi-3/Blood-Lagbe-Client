@@ -31,9 +31,9 @@ const FeaturedSection = () => {
         </h2>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {features.map((item, idx) => (
+          {features.map((item, index) => (
             <div
-              key={idx}
+              key={index}
               className="card bg-white shadow-xl p-6 hover:shadow-2xl transition rounded-xl"
             >
               <div className="flex justify-center mb-4">{item.icon}</div>

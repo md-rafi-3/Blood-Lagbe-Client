@@ -53,7 +53,7 @@ const DonationRequests = () => {
              <div className='flex justify-center items-center'>{requestes.length===0 &&<NoData></NoData>}</div>
 
             <div className={`grid grid-cols-1 md:grid-cols-3 gap-5 ${view==="list" ?"hidden":"block"}`}>
-                {requestes.map(request=><DonationRequestCard request={request}></DonationRequestCard>)}
+                {requestes.map(request=><DonationRequestCard key={request._id} request={request}></DonationRequestCard>)}
             </div>
 
 

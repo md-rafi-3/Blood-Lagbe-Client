@@ -107,7 +107,7 @@ const MyDonationRequest = () => {
                     </thead>
                     <tbody>
                       {/* Row 1 */}
-                     {requests.map((req,index)=>( <tr>
+                     {requests.map((req,index)=>( <tr key={index}>
                       <td>{(index+1)+((page-1)*10)}</td>
                         <td>
                           <div>
