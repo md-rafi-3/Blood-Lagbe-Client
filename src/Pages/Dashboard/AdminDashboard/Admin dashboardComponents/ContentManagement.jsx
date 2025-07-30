@@ -9,18 +9,23 @@ import Swal from "sweetalert2";
 
 
 export default function ContentManagement() {
-  const [statusFilter, setStatusFilter] = useState("all");
+  const [statusFilter, setStatusFilter] = useState("");
   const [searchText, setSearchText] = useState("");
   const axiosSecure=useAxiosSecure()
 
-  const fetchBlogs=async()=>{
-    const res=await axiosSecure.get("/all-blogs");
+  const scarchQuery={
+    statusFilter,
+    searchText
+  }
+
+  const fetchBlogs=async(scarchQuery)=>{
+    const res=await axiosSecure.get("/all-blogs",{params:scarchQuery});
     return res.data;
   }
 
   const { data:blogs=[], isLoading, error ,refetch} = useQuery({
-    queryKey: ['blogs'],
-    queryFn: fetchBlogs,
+    queryKey: ['blogs',scarchQuery],
+    queryFn: ()=>fetchBlogs(scarchQuery),
   })
 
 
@@ -110,7 +115,7 @@ export default function ContentManagement() {
             value={statusFilter}
             onChange={(e) => setStatusFilter(e.target.value)}
           >
-            <option value="all">All Status</option>
+            <option value="">All Status</option>
             <option value="draft">Draft</option>
             <option value="published">Published</option>
           </select>

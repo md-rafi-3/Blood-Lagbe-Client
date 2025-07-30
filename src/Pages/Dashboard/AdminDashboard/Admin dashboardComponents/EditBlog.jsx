@@ -126,7 +126,7 @@ const EditBlog = () => {
             {role==="admin" &&   <option value="published">Published</option>}
             </select>
 
-            <button type="submit" className="btn bg-blue-600 text-white w-full flex items-center gap-2">
+            <button type="submit" className="btn bg-[#d53131] text-white w-full flex items-center gap-2">
               <FaSave /> Update Blog
             </button>
           </div>
