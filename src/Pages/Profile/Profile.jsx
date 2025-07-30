@@ -3,6 +3,7 @@ import Swal from "sweetalert2";
 import useAxiosSecure from "../../Hooks/useAxiosSecure";
 import { AuthContext } from "../../Contexts/AuthContext";
 import { useNavigate } from "react-router";
+import Loading from "../Loading/Loading";
 
 const Profile = () => {
   const axiosSecure = useAxiosSecure();
@@ -167,9 +168,7 @@ const Profile = () => {
 
   if (!user) {
     return (
-      <div className="flex justify-center items-center min-h-screen text-gray-500">
-        Loading profile...
-      </div>
+     <Loading></Loading>
     );
   }
 
@@ -181,9 +180,9 @@ const Profile = () => {
         {!editable ? (
           <button
             onClick={handleEdit}
-            className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition"
+            className="px-4 py-2 bg-[#d53131] text-white rounded hover:bg-red-600 transition"
           >
-            Edit
+            Edit Profile
           </button>
         ) : (
           <>
