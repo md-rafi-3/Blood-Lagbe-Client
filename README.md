@@ -1,47 +1,89 @@
-# 🩸 ব্লাড ডোনেশন অ্যাপ্লিকেশন
+# 🩸 Blood Donation Application
 
-এই অ্যাপ্লিকেশনটি একটি ইউজার-ফ্রেন্ডলি প্ল্যাটফর্ম যা রক্তদাতাদের সঙ্গে রক্তপ্রয়োজনীদের সংযুক্ত করে। এটি একটি MERN Stack প্রজেক্ট যা রক্তদান কার্যক্রমকে আরও সহজ ও কার্যকর করার উদ্দেশ্যে তৈরি করা হয়েছে।
-
----
-
-
+This application is a user-friendly platform that connects blood donors with those in need. Built using the MERN Stack, it aims to make the blood donation process easier and more efficient.
 
 ---
 
-## 🔗 লাইভ লিংকসমূহ
+## 🔗 Live Links
 
-- 🌐 **লাইভ সাইট:** [blood-donation-app.web.app](https://blood-lagbe-6aef7.web.app)
+- 🌐 **Live Site:** [blood-donation-app.web.app](https://blood-lagbe-6aef7.web.app)
+
+---
+
+## 🌟 Key Features
+
+1. ✅ **Role-Based Access Control:** Dashboard and permissions vary based on Admin, Donor, and Volunteer roles.
+2. 🔐 **Authentication via Email and Password (Firebase).**
+3. 🏥 **District and Subdistrict Selection:** Dropdown with Bangladeshi district and upazila data (from GitHub).
+4. 🖼️ **Image Upload:** Avatar and blog thumbnails uploaded using ImageBB API.
+5. 🩸 **Blood Request Management:** Donors can create, update, delete, and change the status of their own requests.
+6. 👥 **User Management (Admin):** Admin can block/unblock users and change roles.
+7. 🔍 **Donor Search:** Search donors by blood group, district, and upazila.
+8. 📝 **Blog & Content Management:** Add, publish/unpublish, delete, and filter blogs.
+9. 📱 **Fully Responsive:** Optimized for mobile, tablet, and desktop devices.
+10. 🔐 **Private Route Persistence:** Page doesn’t redirect to login even after reload.
+11. 🛡️ **JWT Protection:** Private routes and APIs are secured via Firebase Admin SDK.
+12. 📦 **Using TanStack Query:** For data fetching in all GET requests.
+13. 📢 **SweetAlert2 Notifications:** Beautiful toast/sweet alerts for all operations.
+14. 💳 **Stripe Integration:** Users can donate via the Funding page.
+15. 📈 **Dashboard Statistics:** Displays Total Users, Total Funding, and Total Requests.
+16. 👤 **Profile Page Update:** Users can edit profile info (except email) from dashboard.
+17. 🕒 **Recent Requests View:** Donor Dashboard displays the 3 latest requests.
+18. 📚 **Blog Detail Page:** Separate page to read full blog content.
+
+---
+
+## ⚙️ Technology Stack
+
+- **Frontend:** React.js, Tailwind CSS, DaisyUI, React Router, TanStack Query, Firebase Auth
+- **Backend:** Node.js, Express.js, MongoDB, Firebase Admin, JWT
+- **Others:** ImageBB API, Stripe, Jodit Editor, SweetAlert2
+
+---
+
+## 🚀 Installation & Setup
+
+### Prerequisites
+
+- Node.js & npm installed
+- MongoDB database
+- Firebase project setup (for authentication and admin SDK)
+- Stripe account for payments
+
+### Steps
+
+1. **Clone the repository**
+
+```bash
+git clone https://github.com/your-username/blood-donation-app.git
+cd blood-donation-app
+```
+
+2. **Install dependencies**
+
+```bash
+npm install
+```
+
+3. **Setup environment variables**
+
+Create a `.env` file in the root directory and add the required variables:
+
+```
+VITE_API_URL=your_api_url
+VITE_IMAGEBB_KEY=your_imgbb_key
+VITE_FIREBASE_API_KEY=your_firebase_key
+... other Firebase and Stripe keys ...
+```
+
+4. **Run the development server**
+
+```bash
+npm run dev
+```
+
 
 
 ---
 
-## 🌟 মূল ফিচারসমূহ
-
-1. ✅ **রোল ভিত্তিক এক্সেস কন্ট্রোল:** Admin, Donor ও Volunteer রোল অনুযায়ী ড্যাশবোর্ড ও পারমিশন।
-2. 🔐 **ইমেইল ও পাসওয়ার্ড দ্বারা অথেনটিকেশন (Firebase)।**
-3. 🏥 **জেলা ও উপজেলা নির্বাচন:** বাংলাদেশের জেলা ও উপজেলা সিলেকশন ড্রপডাউন (GitHub থেকে ডেটা)।
-4. 🖼️ **ছবি আপলোড:** ImageBB API দিয়ে ইউজার অ্যাভাটার ও ব্লগ থাম্বনেইল আপলোড।
-5. 🩸 **রক্ত অনুরোধ ম্যানেজমেন্ট:** Donor নিজে রিকোয়েস্ট তৈরি, আপডেট, ডিলিট, ও স্ট্যাটাস পরিবর্তন করতে পারে।
-6. 👥 **ইউজার ম্যানেজমেন্ট (Admin):** ইউজারকে ব্লক/আনব্লক ও রোল পরিবর্তনের অপশন।
-7. 🔍 **ডোনার সার্চ:** ব্লাড গ্রুপ, জেলা, উপজেলা অনুযায়ী ডোনার খোঁজা যায়।
-8. 📝 **ব্লগ ও কনটেন্ট ম্যানেজমেন্ট:** ব্লগ যোগ, প্রকাশ/অপ্রকাশ, ডিলিট এবং ফিল্টার।
-9. 📱 **পুরো সাইট রেসপনসিভ:** মোবাইল, ট্যাব ও ডেস্কটপ সকল ডিভাইসে সুন্দরভাবে কাজ করে।
-10. 🔐 **প্রাইভেট রাউট Reload করলেও লগইন পেইজে রিডাইরেক্ট হয় না।**
-11. 🛡️ **JWT প্রোটেকশন:** প্রাইভেট রাউট ও API গুলো Firebase Admin SDK দিয়ে সুরক্ষিত।
-12. 📦 **TanStack Query ব্যবহার:** সকল GET রিকোয়েস্টে ডেটা ফেচিং এ ব্যাবহার করা হয়েছে।
-13. 📢 **SweetAlert2 নোটিফিকেশন:** সকল অপারেশনে সুন্দর টোস্ট/সুইট অ্যালার্ট।
-14. 💳 **Stripe Integration:** ইউজারগণ অনুদান দিতে পারে (Funding পেইজে)।
-15. 📈 **ড্যাশবোর্ড স্ট্যাটিস্টিক্স:** Total Users, Total Funding, Total Requests দেখায়।
-16. 👤 **প্রোফাইল পেইজ আপডেট:** এডিট বাটনে ক্লিক করলে ইনফো এডিট করা যায় (ইমেইল বাদে)।
-17. 🕒 **সাম্প্রতিক ৩টি রিকোয়েস্ট দেখা যায় Donor Dashboard এ।**
-18. 📚 **ব্লগ ডিটেইল পেইজ:** প্রতিটি ব্লগের বিস্তারিত পড়ার জন্য আলাদা পেইজ।
-
----
-
-## ⚙️ টেকনোলজি স্ট্যাক
-
-- **ফ্রন্টএন্ড:** React.js, Tailwind CSS, DaisyUI, React Router, TanStack Query, Firebase Auth
-- **ব্যাকএন্ড:** Node.js, Express.js, MongoDB, Firebase Admin, JWT
-- **অন্যান্য:** ImageBB API, Stripe, Jodit Editor, SweetAlert2
-
----"# Blood-Lagbe-Client" 
+**Enjoy contributing to a life-saving platform!**
