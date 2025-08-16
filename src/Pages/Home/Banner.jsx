@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useNavigate } from "react-router";
 import { Typewriter } from "react-simple-typewriter";
+import { AuthContext } from "../../Contexts/AuthContext";
 
 const Banner = () => {
+  const {user}=useContext(AuthContext)
   const navigate = useNavigate();
 
   return (
@@ -36,17 +38,17 @@ const Banner = () => {
           </p>
 
           <div className="flex justify-center gap-4">
-            <button 
-              onClick={() => navigate("/register")}
+           {!user&& <button 
+              onClick={() => navigate("/signUp")}
               className="btn border-none text-white"
               style={{ backgroundColor: "#d53131" }}
             >
               Join as a Donor
-            </button>
+            </button>}
             <button 
-              onClick={() => navigate("/search-donors")}
-              className="btn border-none text-white"
-              style={{ backgroundColor: "#d53131" }}
+              onClick={() => navigate("/searchDonors")}
+              className="btn btn-outline border border-[#d53131] text-[#d53131] hover:bg-[#d53131] hover:text-white"
+            
             >
               Search Donors
             </button>

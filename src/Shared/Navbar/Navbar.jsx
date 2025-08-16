@@ -138,7 +138,7 @@ const Navbar = () => {
               </ul>
             </div>
           </div>) : <Link to="/login">
-            <button className='md:flex hidden items-center gap-1 px-3 py-3 hover:bg-[#d53131] rounded-lg hover:text-white'><MdLogin />Login</button>
+            <button className='md:flex hidden items-center gap-1 px-3 py-3 hover:bg-[#d53131] rounded-lg hover:text-white font-bold'><MdLogin />Login</button>
           </Link>
         }
       

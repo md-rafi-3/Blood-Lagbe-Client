@@ -139,7 +139,7 @@ setIsOpen(false)
                   Cancel
                 </button>
                 <button disabled={user.email===details.requesterEmail}
-                  className="btn bg-green-500 hover:bg-green-600 text-white"
+                  className="btn bg-[#d53131] hover:bg-red-600 text-white"
                   onClick={()=>handleDonate(details._id)}
                 >
                   Confirm
