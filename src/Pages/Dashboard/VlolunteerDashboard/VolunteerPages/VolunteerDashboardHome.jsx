@@ -6,6 +6,8 @@ import { Link } from "react-router";
 import { useContext } from "react";
 import { AuthContext } from "../../../../Contexts/AuthContext";
 import Loading from "../../../Loading/Loading";
+import FundingGraph from "../../../../Components/FundingGraph";
+import DonationPostGraph from "../../../../Components/DonationPostGraph";
 
 const VolunteerDashboardHome = () => {
   const {user}=useContext(AuthContext)
@@ -25,7 +27,8 @@ const VolunteerDashboardHome = () => {
     queryFn: fetchTotal,
   })
 
-  const activities = total?.activity || [];
+   const fundingData = total?.fundingData|| [];
+  const requestsData = total?.requestsData|| [];
 
   // console.log(activities)
 
@@ -40,7 +43,7 @@ if(isLoading){
   
 
   return (
-    <div className="md:px-4 px-3 space-y-6">
+    <div className="md:px-4 px-2 space-y-6">
       {/* Welcome Banner */}
       <div
         className="rounded-xl text-white p-6 flex flex-col gap-2 relative overflow-hidden"
@@ -92,34 +95,20 @@ if(isLoading){
 
       {/* Recent Activity and Quick Actions */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <div className="card bg-white shadow-md p-6 border border-gray-200 rounded-2xl">
-          <h4 className="text-lg font-semibold mb-4">Recent Activity</h4>
+        <div className="card bg-white shadow-md p-3 border border-gray-200 rounded-2xl">
+          <h4 className="text-lg font-semibold mb-4">Funding Graph inlight</h4>
           <div className="space-y-4">
             <div className="p-4  rounded-lg bg-gray-50">
              
-             { activities.map(activity=> <div key={activity._id} className="p-4  rounded-lg bg-gray-50">
-              <p className="text-sm font-semibold text-red-500">
-                Blood request submitted by {activity.requesterName}
-              </p>
-              <p className="text-sm text-gray-700">
-                Urgent {activity.bloodGroup} blood needed at {activity.hospital}
-              </p>
-            </div>)}
+            <FundingGraph data={fundingData}></FundingGraph>
               
             </div>
           </div>
         </div>
 
-        <div className="card bg-white shadow-md p-6 border border-gray-200 rounded-2xl">
-          <h4 className="text-lg font-semibold mb-4">Quick Actions</h4>
-          <div className="flex flex-col  gap-3">
-           <Link to="/dashboard/all-users"> <button className="btn bg-[#d53131] hover:bg-[#c02626] text-white w-full flex items-center justify-center py-2 rounded-lg">
-              <FaUsers className="mr-2" /> View All Users
-            </button></Link>
-           <Link  to="/dashboard/all-blood-donation-request"> <button className="btn bg-[#d53131] hover:bg-[#c02626] text-white w-full flex items-center justify-center py-2 rounded-lg">
-              <FaTint className="mr-2" /> Blood Requests
-            </button></Link>
-          </div>
+        <div className="card bg-white shadow-md p-3 border border-gray-200 rounded-2xl">
+          <h4 className="text-lg font-semibold mb-4">Posts Graph inlight</h4>
+         <DonationPostGraph data={requestsData}></DonationPostGraph>
         </div>
       </div>
     </div>

@@ -38,7 +38,7 @@ export default function DonorDashboardHome() {
   }
 
   return (
-    <div className="p-6 space-y-6">
+    <div className="md:p-6 p-2 space-y-6">
       {/* Welcome Banner */}
       <div
         className="rounded-xl text-white p-6 flex flex-col gap-2 relative overflow-hidden"

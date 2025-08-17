@@ -18,7 +18,7 @@ const DonationRequestsDetails = () => {
         return res.data
     }
 
-    const { data: details=[], isLoading, error } = useQuery({
+    const { data: details=[], isLoading} = useQuery({
     queryKey: ['Details',id],
     queryFn: ()=>fethDetails(id),
     

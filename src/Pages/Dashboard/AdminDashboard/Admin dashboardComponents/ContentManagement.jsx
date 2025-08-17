@@ -93,7 +93,7 @@ if(isLoading){
   
 
   return (
-    <div className="p-6 space-y-6">
+    <div className="md:p-6 p-2 space-y-6">
       <div className="flex justify-between items-center">
         <div>
           <h1 className="text-2xl font-bold">Content Management</h1>
@@ -102,7 +102,7 @@ if(isLoading){
           </p>
         </div>
         <Link to="/dashboard/add-blog">
-          <button className="btn bg-[#d53131] text-white">
+          <button className="btn bg-[#d53131] text-white ">
             <FaPlus className="mr-2" /> Add Blog
           </button>
         </Link>

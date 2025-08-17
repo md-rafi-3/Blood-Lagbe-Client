@@ -106,8 +106,8 @@ const AdminDashboardHome = () => {
           </div>
         </div>
 
-        <div className="card bg-white shadow-md p-6 border border-gray-200 rounded-2xl">
-          <h4 className="text-lg font-semibold mb-4">Quick Actions</h4>
+        <div className="card bg-white shadow-md p-3 border border-gray-200 rounded-2xl">
+          <h4 className="text-lg font-semibold mb-4">Posts Graph inlight</h4>
           <DonationPostGraph data={requestsData}></DonationPostGraph>
         </div>
       </div>

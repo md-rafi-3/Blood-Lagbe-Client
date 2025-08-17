@@ -117,7 +117,7 @@ const CreateDonationRequest = () => {
     return (
         <form
             onSubmit={handleSubmit}
-            className="max-w-2xl mx-auto bg-white p-6 rounded-2xl shadow-md mt-10 space-y-5"
+            className="max-w-2xl mx-auto bg-white md:p-6 p-2 rounded-2xl shadow-md mt-10 space-y-5"
         >
             <h2 className="text-2xl font-bold text-[#d53131]">Create Donation Request</h2>
 

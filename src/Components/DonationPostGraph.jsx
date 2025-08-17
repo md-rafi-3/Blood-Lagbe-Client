@@ -24,8 +24,8 @@ const DonationPostGraph = ({ data }) => {
   }));
 
   return (
-    <div className="bg-base-100 shadow-md rounded-2xl p-4 w-full">
-      <h2 className="text-lg font-semibold mb-2">Donation Request Posts</h2>
+    <div className=" rounded-2xl  w-full">
+      
       <div className="w-full h-72">
         <ResponsiveContainer width="100%" height="100%">
           <AreaChart data={chartData}>

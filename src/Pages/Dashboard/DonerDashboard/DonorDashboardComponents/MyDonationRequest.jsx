@@ -64,7 +64,7 @@ const MyDonationRequest = () => {
   }
   //   console.log("my requests",requests)
   return (
-    <div className="p-6 space-y-6">
+    <div className="md:p-6 p-2 space-y-6">
       {/* Header */}
       <div>
         <h1 className="text-2xl font-bold">Blood Donation Requests</h1>

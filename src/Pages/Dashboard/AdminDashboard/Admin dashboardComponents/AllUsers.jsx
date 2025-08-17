@@ -124,7 +124,7 @@ if(isLoading){
      
 
       {/* All Users Table */}
-      <div className="card bg-white shadow-md p-6 border border-gray-200 rounded-2xl">
+      <div className="card bg-white shadow-md p-2 md:p-6 border border-gray-200 rounded-2xl">
         <h4 className="text-lg font-semibold mb-4">All Users</h4>
         <div className="mb-4 flex flex-col md:flex-row gap-3 items-center">
           <input
