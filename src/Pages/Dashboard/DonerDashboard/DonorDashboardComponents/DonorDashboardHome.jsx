@@ -84,7 +84,7 @@ export default function DonorDashboardHome() {
                       year: "numeric",
                     })}
                   </td>
-                  <td>{donation.bloodGroup}</td>
+                  <td className="badge bg-[#d53131] text-white">{donation.bloodGroup}</td>
                   <td > <div className="badge">{donation.status}</div></td>
                   <td><span>{donation.donor?donation.donor.donorName:"Not Available"}</span><br /><span>{donation.donor?donation.donor.donorEmail:"Not Available"}</span></td>
                 </tr>)}
