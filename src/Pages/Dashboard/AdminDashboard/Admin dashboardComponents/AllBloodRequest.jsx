@@ -22,7 +22,7 @@ export default function AllBloodRequest() {
       status
     }
 
-    console.log(queries)
+    // console.log(queries)
 
   const fetchReq=async(page,queries)=>{
     const res=await axiosSecure(`/all-blood-req?page=${page}`,{params:queries});

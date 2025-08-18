@@ -31,7 +31,7 @@ export default function DonorDashboardHome() {
   //   }
   // };
 
-  console.log(recentDonations)
+  // console.log(recentDonations)
 
   if(isLoading){
     return <Loading></Loading>
