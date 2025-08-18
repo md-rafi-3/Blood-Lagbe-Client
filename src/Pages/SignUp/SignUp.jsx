@@ -60,7 +60,7 @@ const SignUp = () => {
 
     try {
       const res = await axios.post(imageUploadUrl, formData);
-      console.log(res.data.data.url)
+      // console.log(res.data.data.url)
       setProfilePic(res.data.data.url);
     } catch (error) {
       Swal.fire(error.message);

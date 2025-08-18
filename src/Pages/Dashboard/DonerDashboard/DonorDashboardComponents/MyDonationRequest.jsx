@@ -115,7 +115,7 @@ const MyDonationRequest = () => {
                     <p className="text-sm text-gray-500">{req.requesterEmail}</p>
                   </div>
                 </td>
-                <td><span className="badge badge-neutral">{req.bloodGroup}</span></td>
+                <td><span className="badge bg-[#d53131] text-white">{req.bloodGroup}</span></td>
                 <td>{req.hospital}</td>
 
                 <td><span className="badge badge-warning">{req.status}</span></td>

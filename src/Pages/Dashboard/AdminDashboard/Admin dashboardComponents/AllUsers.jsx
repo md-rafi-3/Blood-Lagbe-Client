@@ -32,7 +32,7 @@ const AllUsers = () => {
     keepPreviousData: true,
   })
  
-   console.log(status,name)
+  //  console.log(status,name)
 
   // useEffect(()=>{
   //   axios.get("/users").then(res=>{
@@ -41,7 +41,7 @@ const AllUsers = () => {
   //   })
   // },[])
 
-  console.log("user data",users,totalPages)
+  // console.log("user data",users,totalPages)
   
 
   
@@ -174,7 +174,7 @@ if(isLoading){
                     <span className={roleClass(user.role)}>{user.role}</span>
                   </td>
                   <td>
-                    <span className="badge badge-outline badge-info">{user?.bloodGroup}</span>
+                    <span className="badge bg-[#d53131] text-white">{user?.bloodGroup}</span>
                   </td>
                   <td>
                     <span className={statusClass(user.status)}>{user?.status==="blocked"?"Blocked":"Active"}</span>
